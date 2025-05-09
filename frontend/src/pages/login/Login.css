@@ -1,0 +1,219 @@
+/* General Page Styling - Consistent with Signup */
+.login-page {
+  min-height: calc(100vh - 80px); /* Adjust based on header height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background-color: #f7fafc;
+  /* Optional background image */
+  /* background: linear-gradient(rgba(247, 250, 252, 0.85), rgba(247, 250, 252, 0.85)),
+              url('/images/farm-background.jpg') center/cover no-repeat; */
+}
+
+/* Authentication Container - Consistent with Signup */
+.auth-container {
+  background: white;
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 450px; /* Slightly narrower than signup */
+  border-top: 5px solid var(--primary-color, #4CAF50);
+}
+
+/* Heading & Subtitle */
+.auth-container h1 {
+  font-size: 2rem;
+  color: var(--text-dark, #2d3748);
+  margin-bottom: 0.5rem; /* Less space before subtitle */
+  text-align: center;
+  font-weight: 600;
+  font-family: var(--heading-font, sans-serif);
+}
+
+.auth-subtitle {
+  text-align: center;
+  color: var(--text-medium, #718096);
+  margin-bottom: 2rem; /* Space below subtitle */
+  font-size: 1rem;
+}
+
+/* Form Group Styling - Consistent with Signup */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-medium, #4a5568);
+  font-size: 0.9rem;
+}
+
+/* Input Styling - Consistent with Signup */
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="text"] { /* Added text type for consistency */
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--text-dark, #2d3748);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+}
+
+.form-group input::placeholder {
+  color: #a0aec0;
+}
+
+/* Focus State - Consistent with Signup */
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color, #4CAF50);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+}
+
+/* Password Input Specifics - Consistent with Signup */
+.password-input-container {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  bottom: 1px;
+  width: 50px;
+  background: transparent;
+  border: none;
+  border-left: 1px solid #cbd5e0;
+  border-radius: 0 8px 8px 0;
+  color: var(--text-medium, #4a5568);
+  cursor: pointer;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.password-toggle:hover {
+  background-color: #f7fafc;
+}
+
+.form-group input[type="password"],
+.form-group input[type="text"] { /* Ensure text input also has padding */
+  padding-right: 60px;
+}
+
+/* Optional: Forgot Password Link */
+.forgot-password-link {
+  text-align: right;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.forgot-password-link a {
+  color: var(--primary-color, #4CAF50);
+  text-decoration: none;
+}
+
+.forgot-password-link a:hover {
+  text-decoration: underline;
+}
+
+
+/* Authentication Button - Consistent with Signup */
+.auth-button {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background-color: var(--primary-color, #4CAF50);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  margin-top: 1.5rem; /* Space above button */
+  letter-spacing: 0.5px; /* Consistent letter spacing */
+}
+
+.auth-button:hover:not(:disabled) {
+  background-color: var(--primary-color-dark, #388E3C); /* Darker shade on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+}
+
+.auth-button:disabled {
+  background-color: var(--primary-color-light, #a5d6a7); /* Lighter when disabled */
+  cursor: not-allowed;
+}
+
+/* Error Message Styling - Consistent with Signup */
+.error-message {
+  background-color: #fff5f5;
+  color: #c53030;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border: 1px solid #f5c6cb; /* Light red border */
+  text-align: center;
+}
+
+/* Links (Sign Up) - Consistent with Signup */
+.auth-links {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.95rem; /* Adjusted size */
+  color: var(--text-medium, #4a5568);
+}
+
+.auth-links a {
+  color: var(--primary-color, #4CAF50);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.auth-links a:hover {
+  color: var(--primary-color-dark, #388E3C);
+  text-decoration: underline;
+}
+
+/* Responsive adjustments - Consistent with Signup */
+@media (max-width: 576px) {
+  .auth-container {
+    padding: 1.5rem; /* Less padding on small screens */
+    border-top-width: 4px;
+  }
+
+  .auth-container h1 {
+    font-size: 1.6rem; /* Smaller heading */
+  }
+
+   .auth-subtitle {
+    font-size: 0.9rem; /* Smaller subtitle */
+    margin-bottom: 1.5rem; /* Adjust spacing */
+  }
+
+  .auth-button {
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .form-group input[type="password"],
+  .form-group input[type="text"] {
+    padding-right: 55px; /* Adjust padding for smaller toggle */
+  }
+
+  .password-toggle {
+    width: 45px; /* Smaller toggle button */
+  }
+}

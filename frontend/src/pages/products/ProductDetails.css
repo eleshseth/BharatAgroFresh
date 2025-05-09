@@ -1,0 +1,353 @@
+/* Assuming variables like --primary-color, --secondary-color, --text-color, --light-color, --white-color, --border-color, --shadow-sm, --shadow-md, --border-radius-md, --border-radius-lg, --transition exist */
+
+/* Renamed container class */
+.product-detail-page-container {
+  padding: 2rem 1rem; /* Adjusted padding */
+  max-width: 1200px;
+  margin: 2rem auto;
+  background-color: var(--white-color); /* Use white background */
+  border-radius: var(--border-radius-lg); /* Use variable */
+  box-shadow: var(--shadow-md); /* Use variable */
+}
+
+/* Consolidated and styled back button */
+.back-button {
+  display: inline-flex; /* Use inline-flex for alignment */
+  align-items: center;
+  gap: 8px;
+  background: var(--white-color); /* Use variable */
+  border: 1px solid var(--border-color); /* Use variable */
+  padding: 0.6rem 1.2rem; /* Adjusted padding */
+  border-radius: var(--border-radius-full); /* Use variable */
+  cursor: pointer;
+  font-weight: 500; /* Adjusted weight */
+  margin-bottom: 2rem;
+  transition: var(--transition); /* Use variable */
+  color: var(--text-color); /* Use variable */
+  font-size: 0.95rem; /* Adjusted size */
+}
+
+.back-button:hover {
+  background: var(--primary-color-light); /* Use variable */
+  color: var(--primary-color); /* Use variable */
+  border-color: var(--primary-color-light); /* Use variable */
+  transform: translateX(-3px); /* Reduced transform */
+  box-shadow: var(--shadow-sm); /* Use variable */
+}
+
+/* Renamed grid container */
+.product-detail-grid {
+  display: grid;
+  /* grid-template-columns: repeat(2, 1fr); Default to 1 column, adjust in media query */
+  grid-template-columns: 1fr;
+  gap: 2rem; /* Adjusted gap */
+  /* Removed background, padding, shadow - handled by page container */
+}
+
+/* Added container for image */
+.product-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3; /* Adjust aspect ratio as needed */
+  border-radius: var(--border-radius-lg); /* Use variable */
+  overflow: hidden;
+  box-shadow: var(--shadow-sm); /* Use variable */
+  border: 1px solid var(--border-color); /* Add subtle border */
+}
+
+.product-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease; /* Use variable or adjust timing */
+}
+
+.product-image-container:hover img {
+  transform: scale(1.03); /* Reduced scale */
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Adjusted gap */
+}
+
+.product-info h1 {
+  /* font-size: 2.8rem; Use base h1 style or adjust */
+  color: var(--text-color); /* Use variable */
+  margin-bottom: 0.25rem; /* Reduced margin */
+  font-weight: 700;
+  line-height: 1.2;
+  /* font-family: var(--heading-font); */
+}
+
+.product-category {
+  display: inline-block;
+  background: var(--primary-color-light); /* Use variable */
+  color: var(--primary-color); /* Use variable */
+  padding: 0.4rem 0.8rem; /* Adjusted padding */
+  border-radius: var(--border-radius-md); /* Use variable */
+  font-size: 0.85rem; /* Adjusted size */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  align-self: flex-start; /* Align to start */
+}
+
+.product-price {
+  /* font-size: 2.4rem; Use base style or adjust */
+  color: var(--primary-color); /* Use variable */
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0.5rem 0; /* Add vertical margin */
+}
+
+.product-description {
+  /* font-size: 1.2rem; Use base p style or adjust */
+  line-height: 1.7; /* Adjusted line height */
+  color: var(--text-color-light); /* Use variable */
+  margin: 0.5rem 0; /* Adjusted margin */
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color); /* Use variable */
+}
+
+.product-options {
+  margin: 1rem 0; /* Adjusted margin */
+}
+
+.product-options label {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Adjusted gap */
+  /* font-size: 1.2rem; Use base label style or adjust */
+  color: var(--text-color); /* Use variable */
+  font-weight: 500;
+}
+
+.product-options select {
+  padding: 0.8rem 1rem; /* Adjusted padding */
+  border: 1px solid var(--border-color); /* Use variable */
+  border-radius: var(--border-radius-md); /* Use variable */
+  /* font-size: 1.1rem; Use base select style or adjust */
+  min-width: 180px; /* Adjusted width */
+  cursor: pointer;
+  transition: var(--transition); /* Use variable */
+  background: var(--white-color); /* Use variable */
+  color: var(--text-color); /* Use variable */
+}
+
+.product-options select:hover {
+  border-color: var(--primary-color); /* Use variable */
+}
+
+/* Styling for definition list */
+.product-meta {
+  background: var(--light-color); /* Use variable */
+  padding: 1.5rem; /* Adjusted padding */
+  border-radius: var(--border-radius-md); /* Use variable */
+  border-left: 4px solid var(--primary-color); /* Use variable */
+  margin: 1rem 0; /* Adjusted margin */
+}
+
+.product-meta dl div {
+  margin-bottom: 0.75rem; /* Space between items */
+  font-size: 1rem; /* Adjusted size */
+  color: var(--text-color-light); /* Use variable */
+  display: flex;
+  gap: 8px;
+  line-height: 1.5;
+}
+.product-meta dl div:last-child {
+  margin-bottom: 0;
+}
+
+.product-meta dt { /* Definition Term (Label) */
+  color: var(--text-color); /* Use variable */
+  min-width: 120px; /* Adjusted width */
+  font-weight: 600;
+  flex-shrink: 0; /* Prevent label from shrinking */
+}
+
+.product-meta dd { /* Definition Description (Value) */
+  margin-left: 0; /* Reset default margin */
+}
+
+/* Cart Actions */
+.cart-actions {
+  margin-top: 1.5rem; /* Space above actions */
+  display: flex;
+  align-items: center;
+}
+
+.add-to-cart-btn {
+  background: var(--primary-color); /* Use variable */
+  color: var(--white-color); /* Use variable */
+  border: none;
+  padding: 0.9rem 1.8rem; /* Adjusted padding */
+  border-radius: var(--border-radius-md); /* Use variable */
+  /* font-size: 1.3rem; Use base button style or adjust */
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition); /* Use variable */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: var(--shadow-sm); /* Use variable */
+}
+
+.add-to-cart-btn:hover {
+  background: var(--secondary-color); /* Use variable */
+  transform: translateY(-2px); /* Reduced transform */
+  box-shadow: var(--shadow-md); /* Use variable */
+}
+
+/* Quantity Control Styles */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--light-color); /* Use variable */
+  border-radius: var(--border-radius-full); /* Use variable */
+  padding: 0.3rem;
+  box-shadow: var(--shadow-inset); /* Use variable or define */
+}
+
+.quantity-btn {
+  background-color: var(--white-color); /* Use variable */
+  border: 1px solid var(--border-color); /* Use variable */
+  color: var(--primary-color); /* Use variable */
+  width: 36px; /* Fixed width */
+  height: 36px; /* Fixed height */
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition); /* Use variable */
+  line-height: 1; /* Ensure text is centered */
+}
+
+.quantity-btn:hover {
+  background-color: var(--primary-color); /* Use variable */
+  color: var(--white-color); /* Use variable */
+  border-color: var(--primary-color); /* Use variable */
+}
+
+.item-count {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color); /* Use variable */
+  min-width: 30px; /* Ensure space for number */
+  text-align: center;
+  padding: 0 0.5rem;
+}
+
+/* Loading and Error Styles (Assuming variables) */
+.loading {
+  text-align: center;
+  padding: 4rem; /* Adjusted padding */
+  font-size: 1.2rem; /* Adjusted size */
+  color: var(--text-color-light); /* Use variable */
+  background: var(--light-color); /* Use variable */
+  border-radius: var(--border-radius-lg); /* Use variable */
+  margin: 2rem auto;
+  max-width: 600px; /* Adjusted width */
+}
+
+.error-container {
+  text-align: center;
+  padding: 3rem; /* Adjusted padding */
+  color: var(--danger-color); /* Use variable */
+  background: var(--danger-color-light); /* Use variable */
+  border: 1px solid var(--danger-color); /* Use variable */
+  border-radius: var(--border-radius-lg); /* Use variable */
+  margin: 2rem auto;
+  max-width: 600px; /* Adjusted width */
+}
+
+.error-container p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem; /* Adjusted size */
+}
+
+.error-container button {
+  margin-top: 1rem; /* Adjusted margin */
+  padding: 0.8rem 1.5rem; /* Adjusted padding */
+  background: var(--danger-color); /* Use variable */
+  color: var(--white-color); /* Use variable */
+  border: none;
+  border-radius: var(--border-radius-md); /* Use variable */
+  font-size: 1rem; /* Adjusted size */
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition); /* Use variable */
+}
+
+.error-container button:hover {
+  background: var(--danger-color-dark); /* Use variable */
+  transform: translateY(-2px);
+}
+
+/* --- Responsive --- */
+
+@media (min-width: 768px) {
+  .product-detail-grid {
+     grid-template-columns: repeat(2, 1fr); /* 2 columns on larger screens */
+     gap: 3rem; /* Increase gap */
+  }
+  .product-detail-page-container {
+     padding: 2rem; /* Increase padding */
+  }
+}
+
+@media (max-width: 768px) {
+  /* Styles for smaller tablets and mobile */
+  .product-info h1 {
+    font-size: 2rem;
+  }
+    /* font-size: 2rem; Adjust if needed */
+  }
+  .product-price {
+    font-size: 2rem;
+  }
+
+  .product-meta dl div {
+    flex-direction: column; /* Stack label and value */
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .product-meta dt {
+    min-width: auto; /* Remove min-width */
+  }
+  .cart-actions {
+    flex-direction: column; /* Stack button/controls */
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+@media (max-width: 480px) {
+  /* Styles for small mobile */
+  .product-detail-page-container {
+    padding: 1rem;
+    margin: 1rem;
+    box-shadow: none; /* Remove shadow on small screens */
+    border: 1px solid var(--border-color);
+  }
+  .product-image-container {
+    aspect-ratio: 1 / 1; /* Make image square on small screens */
+  }
+  .product-options select {
+    width: 100%; /* Full width select */
+  }
+  .add-to-cart-btn {
+    width: 100%; /* Full width button */
+    padding: 1rem;
+  }
+  .quantity-control {
+    width: 100%; /* Full width controls */
+    justify-content: space-between; /* Space out buttons */
+  }
+}

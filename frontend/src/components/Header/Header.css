@@ -1,0 +1,445 @@
+/* ======================================== */
+/* Base Variables (Optional)                */
+/* ======================================== */
+:root {
+  --primary-color: #4CAF50;
+  --secondary-color: #66bb6a;
+  --accent-color: #ff5722;
+  --text-color: #333;
+  --text-color-light: #666;
+  --white-color: #fff;
+  --border-color: #e0e0e0;
+  --border-color-light: #f0f0f0;
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --border-radius-full: 50px;
+}
+
+/* ======================================== */
+/* Header Component                         */
+/* ======================================== */
+header {
+  background: var(--white-color);
+  padding: 0.75rem 0;
+  box-shadow: var(--shadow-sm);
+  position: fixed; /* Use fixed for sticky top */
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Content Wrapper */
+.header-content-wrapper {
+  max-width: 1400px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between; /* Logo left, rest right */
+  align-items: center;
+  gap: 1rem; /* Base gap */
+  padding: 0 2rem;
+  position: relative; /* For absolute positioning of mobile menu */
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Prevent logo from shrinking */
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-size: 1.9rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+.logo-link p{
+  font-size: 1.9rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+.logo-link:hover {
+  color: var(--secondary-color);
+}
+
+.logo-img {
+  height: 100px; /* Adjust as needed */
+  object-fit: contain;
+}
+
+/* Container for right-side elements on desktop */
+.header-right-desktop {
+  display: flex; /* Show by default */
+  align-items: center;
+  gap: 2rem; /* Gap between desktop nav and desktop auth */
+  margin-left: auto; /* Push towards the right, but before user menu/hamburger */
+}
+
+/* Navigation Links */
+.nav-links { /* Common styles */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.nav-links.desktop-nav {
+  display: flex; /* Ensure desktop nav is flex */
+  gap: 2rem;
+}
+
+.nav-links.mobile-nav {
+  display: none; /* Hide mobile nav by default */
+}
+
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary-color);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+
+/* Auth Buttons */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.auth-buttons.desktop-auth {
+   display: flex; /* Show desktop auth by default */
+}
+.auth-buttons.mobile-auth {
+    display: none; /* Hide mobile auth by default */
+}
+
+.login-btn,
+.signup-btn {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--border-radius-full);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap; /* Prevent button text wrapping */
+}
+
+.login-btn {
+  color: var(--primary-color);
+  background: var(--white-color);
+  border-color: var(--primary-color);
+}
+
+.login-btn:hover {
+  background-color: #ecfdf5;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.signup-btn {
+  color: var(--white-color);
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.signup-btn:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+
+/* User Menu Container (Profile + Cart) */
+.user-menu-container.always-visible {
+    display: flex; /* Show by default */
+    align-items: center;
+    gap: 1rem; /* Adjust gap */
+    margin-left: 1.5rem; /* Space between nav/auth and user menu on desktop */
+}
+
+/* Cart Icon */
+.cart-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: var(--text-color-light);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 1.4rem; /* Base size */
+}
+
+.cart-icon:hover {
+  color: var(--primary-color);
+}
+
+.cart-icon .material-icons {
+  font-size: 26px; /* Icon size */
+  display: block; /* Ensure icon takes space */
+}
+
+.cart-count {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background-color: var(--accent-color);
+  color: var(--white-color);
+  border-radius: 50%;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.7rem;
+  font-weight: bold;
+  min-width: 16px;
+  text-align: center;
+  line-height: 1; /* Adjust line height */
+  border: 1px solid var(--white-color);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Hamburger Menu Button */
+.hamburger-menu {
+  display: none; /* Hide hamburger by default (on desktop) */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin: -8px 0 -8px 0.5rem; /* Negative margin to offset padding, add left space */
+  color: var(--text-color);
+  z-index: 1001; /* Above mobile menu */
+}
+.hamburger-menu .material-icons {
+  font-size: 30px;
+  display: block;
+}
+
+/* Mobile Menu Container (Dropdown) */
+.mobile-menu-container {
+  display: none; /* Hide mobile dropdown container by default */
+  position: absolute;
+  top: calc(100% + 1px); /* Position below header border */
+  left: 0;
+  width: 100%;
+  background-color: var(--white-color);
+  box-shadow: var(--shadow-md);
+  padding: 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  border-top: 1px solid var(--border-color-light);
+  z-index: 1000;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease-out; /* Animate height and padding */
+}
+
+.mobile-menu-container.mobile-menu-open {
+  display: flex; /* Use flex when open */
+  max-height: calc(100vh - 70px); /* Adjust max height as needed */
+  overflow-y: auto;
+  padding: 0.5rem 0; /* Add padding when open */
+}
+
+
+/* ======================================== */
+/* Responsive: Tablet (Adjustments)         */
+/* ======================================== */
+@media (max-width: 992px) {
+  .header-content-wrapper {
+    padding: 0 1.5rem;
+  }
+  .header-right-desktop {
+      gap: 1.5rem;
+  }
+  .nav-links.desktop-nav {
+    gap: 1.2rem;
+  }
+  .user-menu-container.always-visible {
+      margin-left: 1rem;
+  }
+  .logo-link {
+    font-size: 1.4rem;
+  }
+  .logo-img {
+      height: 50px;
+  }
+}
+
+/* ======================================== */
+/* Responsive: Mobile Layout (<= 768px)     */
+/* ======================================== */
+@media (max-width: 768px) {
+  header {
+    padding: 0.5rem 0;
+  }
+  .header-content-wrapper {
+    padding: 0 1rem;
+  }
+
+  /* Hide Desktop-specific elements */
+  .header-right-desktop {
+    display: none; /* Hide the whole desktop right container */
+  }
+
+  /* Keep User Menu/Cart visible but adjust */
+  .user-menu-container.always-visible {
+     display: flex;
+     order: 2; /* Position before hamburger */
+     margin-left: auto; /* Push towards the right */
+     gap: 0.8rem;
+  }
+
+  /* Show Hamburger Button */
+  .hamburger-menu {
+    display: block; /* Show hamburger */
+    order: 3; /* Place hamburger at the end */
+    /* margin-left: 0.5rem; */ /* Spacing handled by wrapper gap/margins */
+  }
+
+  /* Style Mobile Nav Links within Dropdown */
+  .mobile-menu-container .nav-links.mobile-nav {
+    display: flex; /* Show mobile nav links */
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+  }
+  .mobile-menu-container .nav-links.mobile-nav li {
+      width: 100%;
+  }
+  .mobile-menu-container .nav-links.mobile-nav a {
+    display: block;
+    padding: 0.8rem 1.5rem;
+    border-bottom: 1px solid var(--border-color-light);
+    font-size: 1rem;
+    color: var(--text-color);
+    text-decoration: none;
+  }
+   .mobile-menu-container .nav-links.mobile-nav li:last-child a {
+       border-bottom: none;
+   }
+  .mobile-menu-container .nav-links.mobile-nav a::after {
+    display: none; /* Hide desktop underline effect */
+  }
+   .mobile-menu-container .nav-links.mobile-nav a.active {
+       color: var(--primary-color);
+       background-color: #f8f8f8;
+   }
+
+  /* Style Mobile Auth Section within Dropdown */
+  .mobile-menu-container .user-auth-section {
+      display: block; /* Show the wrapper */
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border-color);
+  }
+  .mobile-menu-container .auth-buttons.mobile-auth {
+    display: flex; /* Show mobile auth buttons */
+    flex-direction: column; /* Stack buttons */
+    width: 100%;
+    gap: 0.75rem;
+  }
+  .mobile-menu-container .auth-buttons.mobile-auth .login-btn,
+  .mobile-menu-container .auth-buttons.mobile-auth .signup-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    min-height: 44px;
+    text-align: center;
+    font-size: 0.95rem;
+    max-width: none; /* Allow full width */
+  }
+
+  /* Adjust logo size for mobile */
+  .logo-link {
+     font-size: 1.3rem;
+  }
+  .logo-img {
+     height: 40px;
+  }
+}
+
+/* ======================================== */
+/* Responsive: Smaller Mobile (<= 480px)    */
+/* ======================================== */
+@media (max-width: 480px) {
+    .header-content-wrapper {
+        padding: 0 0.75rem;
+    }
+    .logo-link {
+        font-size: 1.1rem; /* Smaller logo text */
+        gap: 0.3rem; /* Reduce gap */
+    }
+    .logo-img {
+        height: 35px; /* Smaller logo image */
+    }
+    /* Adjust user menu/cart gap and size */
+    .user-menu-container.always-visible {
+        gap: 0.5rem;
+        margin-left: 0.5rem; /* Reduce margin */
+    }
+     .user-menu-container.always-visible .cart-icon .material-icons {
+         font-size: 22px; /* Smaller icon */
+     }
+     .user-menu-container.always-visible .cart-count {
+         font-size: 0.65rem;
+         padding: 0.1rem 0.35rem;
+         top: -4px;
+         right: -8px;
+     }
+     /* Adjust UserProfile trigger size if needed (target .profile-trigger, .profile-avatar inside .user-menu-container) */
+
+    /* Adjust mobile dropdown link padding/font */
+    .mobile-menu-container .nav-links.mobile-nav a {
+        padding: 0.7rem 1rem;
+        font-size: 0.95rem;
+    }
+    /* Adjust mobile dropdown auth section padding */
+     .mobile-menu-container .user-auth-section {
+         padding: 0.75rem 1rem;
+     }
+    /* Adjust mobile dropdown auth button padding/font */
+    .mobile-menu-container .auth-buttons.mobile-auth .login-btn,
+    .mobile-menu-container .auth-buttons.mobile-auth .signup-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+        min-height: 40px;
+    }
+}
+
+/* Add styles for UserProfile dropdown positioning if needed */
+/* Example: */
+/* .user-profile .profile-dropdown { ... } */
+/* .user-profile .profile-dropdown::before { ... } */
+  

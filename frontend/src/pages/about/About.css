@@ -1,0 +1,386 @@
+/* About Page Styles */
+.about-page {
+    padding: 1rem;
+    animation: fadeIn 0.8s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Hero Section */
+  .about-hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 6rem 1rem;
+    margin-bottom: 4rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .about-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(76, 175, 80, 0.3), rgba(139, 195, 74, 0.3));
+    z-index: 1;
+  }
+  
+  .about-hero h1, .about-hero p {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .about-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: inline-block;
+    color: #4CAF50;
+  }
+  
+  .about-hero h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--accent-color);
+    border-radius: 3px;
+  }
+  
+  .about-hero p {
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 0 auto;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    color: #f0f0f0;
+  }
+  
+  /* Our Story Section */
+  .our-story, .our-mission, .team {
+    margin-bottom: 5rem;
+    position: relative;
+  }
+  
+  .our-story h2, .our-mission h2, .team h2 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    position: relative;
+    padding-bottom: 15px;
+  }
+  
+  .our-story h2::after, .our-mission h2::after, .team h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--accent-color);
+    border-radius: 3px;
+  }
+  
+  .story-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .story-image {
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .story-image:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .story-image img {
+    width: 100%;
+    height: 700px;
+    border-radius: 19px;
+    margin: 0 auto;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  
+  .story-image:hover img {
+    transform: scale(1.03);
+  }
+  /* story text */
+  .story-text {
+    background-color: #f9f9f9; /* Light background for contrast */
+    padding: 2rem; /* Add padding for spacing */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    line-height: 1.8; /* Improve readability */
+    color: #333; /* Dark text for readability */
+    font-size: 1.1rem; /* Slightly larger font size */
+    font-family: 'Roboto', sans-serif; /* Clean font */
+    margin: 2rem; /* Add spacing below */
+    position: relative; /* For decorative elements */
+  }
+  
+  .story-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background-color: var(--primary-color); /* Accent color */
+    border-radius: 12px 0 0 12px; /* Rounded left border */
+  }
+  
+  .story-text p {
+    margin-bottom: 1rem; /* Add spacing between paragraphs */
+  }
+  
+  .story-text p:last-child {
+    margin-bottom: 0; /* Remove margin for the last paragraph */
+  }
+
+  /* Mission Values */
+  .mission-values {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+  }
+  
+  .value-card {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border-top: 4px solid var(--primary-color);
+  }
+  
+  .value-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .value-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.2rem;
+    font-size: 1.4rem;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .value-card h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--accent-color);
+    border-radius: 2px;
+  }
+  
+  .value-card p {
+    line-height: 1.7;
+    color: #555;
+  }
+  
+  /* Team Section */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2.5rem;
+  }
+  
+  .team-member {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+  
+  .team-member:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .team-member img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .team-member:hover img {
+    transform: scale(1.05);
+  }
+  
+  .team-member h3 {
+    margin: 1.2rem 0 0.5rem;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+  }
+  
+  .team-member p {
+    color: #666;
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+  }
+  
+  /* Responsive Design */
+  @media (min-width: 992px) {
+    .story-content {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .story-image {
+      grid-column: 1 / -1;
+    }
+    
+    .mission-values {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .team-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 991px) {
+    .story-content {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .story-image {
+      grid-column: 1 / -1;
+    }
+    
+    .mission-values {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .team-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .about-hero {
+      padding: 4rem 1rem;
+      margin-bottom: 3rem;
+    }
+    
+    .about-hero h1 {
+      font-size: 2.2rem;
+    }
+    
+    .about-hero p {
+      font-size: 1.1rem;
+    }
+    
+    .our-story h2, .our-mission h2, .team h2 {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+    }
+    
+    .mission-values {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    
+    .value-card {
+      padding: 2rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .about-hero {
+      padding: 3rem 1rem;
+      border-radius: 8px;
+    }
+    
+    .about-hero h1 {
+      font-size: 1.8rem;
+    }
+    
+    .about-hero p {
+      font-size: 1rem;
+    }
+    
+    .our-story h2, .our-mission h2, .team h2 {
+      font-size: 1.6rem;
+    }
+    
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .value-card, .team-member {
+      padding: 1.5rem;
+    }
+    
+    .team-member img {
+      height: 160px;
+    }
+  }
+  
+  /* For landscape orientation on mobile */
+  @media (max-width: 768px) and (orientation: landscape) {
+    .team-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* For high-resolution displays */
+  @media (min-width: 1440px) {
+    .about-hero {
+      padding: 8rem 1rem;
+    }
+    
+    .about-hero h1 {
+      font-size: 3.5rem;
+    }
+    
+    .about-hero p {
+      font-size: 1.5rem;
+    }
+    
+    .story-image img {
+      max-width: 800px;
+    }
+    
+    .mission-values {
+      gap: 3rem;
+    }
+  }

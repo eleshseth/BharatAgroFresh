@@ -1,0 +1,12 @@
+.dashboard {
+  min-height: 100vh;
+}
+
+.dashboard-content {
+  padding: 2rem;
+}
+
+.dashboard-content h2 {
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}

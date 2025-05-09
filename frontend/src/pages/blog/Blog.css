@@ -1,0 +1,563 @@
+/* Blog Page Styles */
+:root {
+  /* Define your variables here if not defined globally */
+  /* Example: */
+  --primary-color: #4CAF50;
+  --accent-color: #ff9800;
+  --text-color: #333;
+  --secondary-color: #757575; /* Added for subscribe gradient */
+  --border-color: #e0e0e0;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.blog-page {
+  padding: 1rem 0; /* Changed to remove horizontal padding here, handled by container */
+  max-width: 1200px; /* Add max-width for content */
+  margin: 0 auto; /* Center content */
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Hero Section */
+.blog-hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 6rem 1rem;
+  margin-bottom: 3.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(76, 175, 80, 0.3), rgba(139, 195, 74, 0.3));
+  z-index: 1;
+}
+
+.blog-hero h1, .blog-hero p {
+  position: relative;
+  z-index: 2;
+}
+
+.blog-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: inline-block;
+  color: #4CAF50; /* Example color */
+}
+
+.blog-hero h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 3px;
+}
+
+.blog-hero p {
+  font-size: 1.3rem;
+  max-width: 800px;
+  margin: 0 auto;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  line-height: 1.6;
+  color: #f0f0f0; /* Lighten text for better contrast */
+}
+
+/* Section Headings */
+.featured-post h2, .blog-posts h2, .subscribe h2 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: var(--primary-color);
+  font-size: 2.2rem;
+  position: relative;
+  padding-bottom: 15px;
+  font-weight: 600; /* Added for consistency */
+}
+
+.featured-post h2::after, .blog-posts h2::after, .subscribe h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 3px;
+}
+
+/* Featured Post Section */
+.featured-post {
+  margin-bottom: 5rem;
+}
+
+.featured-post-content {
+  display: grid;
+  grid-template-columns: 1fr; /* Default to single column */
+  gap: 0; /* No gap initially */
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featured-post-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.featured-image {
+  overflow: hidden;
+  height: 350px; /* Give featured image a fixed height */
+}
+
+.featured-image img {
+  width: 100%;
+  height: 100%; /* Make image fill the container */
+  object-fit: cover; /* Cover the area */
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.featured-post-content:hover .featured-image img {
+  transform: scale(1.03);
+}
+
+.featured-text {
+  padding: 2.5rem;
+  display: flex; /* Use flexbox for alignment */
+  flex-direction: column;
+}
+
+.featured-text h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-color);
+  line-height: 1.3;
+}
+
+.post-meta {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Removed ::before pseudo-element for meta, simpler without it */
+
+.featured-text p:not(.post-meta) { /* Target the excerpt paragraph */
+  margin-bottom: 1.5rem;
+  color: #555;
+  line-height: 1.6;
+  flex-grow: 1; /* Allow excerpt to take available space */
+}
+
+.read-more {
+  margin-top: auto; /* Push button to bottom */
+  align-self: flex-start; /* Align button left */
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none; /* Ensure button has no border */
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer; /* Add cursor pointer */
+  transition: all 0.3s ease;
+  text-decoration: none; /* Remove underline if used as link */
+}
+
+.read-more:hover {
+  background-color: #3e8e41; /* Darker green */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Blog Posts Grid */
+.blog-posts {
+  margin-bottom: 5rem; /* Add margin below posts grid */
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+
+.blog-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%; /* Ensure cards have same height if needed */
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.blog-image {
+  overflow: hidden;
+  height: 220px; /* Fixed height for card images */
+}
+
+.blog-image img {
+  width: 100%;
+  height: 100%; /* Fill container */
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.blog-card:hover .blog-image img {
+  transform: scale(1.05);
+}
+
+.blog-content {
+  padding: 1.8rem;
+  flex-grow: 1; /* Allow content to fill space */
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.4;
+  color: var(--text-color);
+}
+
+.blog-content .post-meta {
+  margin-bottom: 1rem;
+}
+
+.blog-content p:not(.post-meta) { /* Target excerpt */
+  margin-bottom: 1.5rem;
+  color: #555;
+  line-height: 1.6;
+  flex-grow: 1; /* Allow excerpt to take space */
+}
+
+.blog-content .read-more {
+  /* Inherits .read-more styles */
+  margin-top: auto; /* Push to bottom */
+  padding: 8px 16px; /* Slightly smaller padding */
+  font-size: 0.95rem;
+}
+
+/* Subscribe Section */
+.subscribe {
+  /* Use CSS variables */
+  background: linear-gradient(135deg, var(--secondary-color, #757575), #7cb342); /* Example gradient */
+  padding: 4rem 2rem;
+  text-align: center;
+  border-radius: 12px;
+  margin-top: 5rem;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Optional overlay pattern */
+.subscribe::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Example subtle pattern */
+  /* background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>'); */
+  /* background-size: cover; */
+  opacity: 0.1; /* Make pattern subtle */
+  z-index: 1; /* Ensure it's behind text */
+}
+
+.subscribe h2, .subscribe p {
+  position: relative; /* Ensure text is above ::before */
+  z-index: 2;
+}
+
+.subscribe h2 {
+  color: white; /* Override default color */
+  margin-bottom: 1.5rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.subscribe h2::after {
+  background-color: white; /* White underline */
+}
+
+.subscribe p {
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.1rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Subscribe Form */
+.subscribe-form {
+  display: flex;
+  max-width: 550px;
+  margin: 0 auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden; /* Clip button radius */
+  position: relative; /* Ensure form is above ::before */
+  z-index: 2;
+}
+
+.subscribe-form input {
+  flex: 1; /* Take available space */
+  padding: 1rem 1.5rem;
+  border: none;
+  font-size: 1.05rem;
+  border-radius: 8px 0 0 8px; /* Round left corners */
+  /* width: 100%; Removed, flex: 1 handles it */
+  box-sizing: border-box;
+  color: var(--text-color); /* Ensure text color is readable */
+}
+
+.subscribe-form input:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--accent-color);
+}
+
+.subscribe-form button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0 2rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 0 8px 8px 0; /* Round right corners */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap; /* Prevent button text wrapping */
+}
+
+.subscribe-form button:hover {
+  background-color: #e68a00; /* Darker accent color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Responsive Design --- */
+
+/* Larger Tablets / Small Laptops */
+@media (min-width: 992px) {
+  .featured-post-content {
+    grid-template-columns: 1.5fr 1fr; /* Adjust ratio image vs text */
+    gap: 2rem; /* Add gap between image and text */
+  }
+  .featured-image {
+    height: auto; /* Allow image height to adjust */
+  }
+  .posts-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+  .featured-post-content {
+    grid-template-columns: 1fr 1fr; /* Equal columns */
+    gap: 1.5rem;
+  }
+   .featured-image {
+    height: auto;
+  }
+  .posts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .blog-page {
+    padding: 1rem; /* Add padding back for mobile */
+  }
+  .blog-hero {
+    padding: 4rem 1rem;
+    margin-bottom: 3rem;
+  }
+  .blog-hero h1 {
+    font-size: 2.2rem;
+  }
+  .blog-hero p {
+    font-size: 1.1rem;
+  }
+
+  .featured-post h2, .blog-posts h2, .subscribe h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .featured-post-content {
+     grid-template-columns: 1fr; /* Stack image and text */
+  }
+  .featured-image {
+    height: 250px; /* Adjust height for mobile */
+  }
+  .featured-text {
+    padding: 2rem;
+  }
+  .featured-text h3 {
+    font-size: 1.5rem;
+  }
+
+  .posts-grid {
+    grid-template-columns: 1fr; /* Single column */
+    gap: 2rem;
+  }
+
+  .subscribe {
+    padding: 3rem 1.5rem;
+    margin-top: 4rem;
+  }
+  .subscribe p {
+    font-size: 1rem;
+  }
+
+  .subscribe-form {
+    flex-direction: column; /* Stack input and button */
+    max-width: 400px;
+    box-shadow: none; /* Remove shadow on stacked form */
+    border-radius: 0;
+    overflow: visible;
+  }
+  .subscribe-form input {
+    border-radius: 8px; /* Round all corners */
+    margin-bottom: 1rem;
+    padding: 0.9rem 1.2rem; /* Adjust padding */
+    width: 100%; /* Ensure full width */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Add subtle shadow */
+  }
+  .subscribe-form button {
+    border-radius: 8px; /* Round all corners */
+    padding: 0.9rem;
+    width: 100%; /* Full width */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Add subtle shadow */
+  }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 576px) {
+  .blog-hero {
+    padding: 3rem 1rem;
+    border-radius: 8px;
+  }
+  .blog-hero h1 {
+    font-size: 1.8rem;
+  }
+  .blog-hero p {
+    font-size: 1rem;
+  }
+
+  .featured-post h2, .blog-posts h2, .subscribe h2 {
+    font-size: 1.6rem;
+  }
+
+  .featured-image {
+    height: 200px; /* Further reduce height */
+  }
+  .featured-text {
+    padding: 1.5rem;
+  }
+  .featured-text h3 {
+    font-size: 1.3rem;
+  }
+
+  .blog-image { /* Card image height */
+    height: 180px;
+  }
+  .blog-content {
+    padding: 1.2rem;
+  }
+  .blog-content h3 {
+    font-size: 1.2rem;
+  }
+  .read-more {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Optional: Landscape on mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .posts-grid {
+    grid-template-columns: repeat(2, 1fr); /* Show two columns in landscape */
+  }
+}
+
+/* Optional: High-resolution displays */
+@media (min-width: 1440px) {
+  .blog-page {
+     max-width: 1400px; /* Wider container */
+  }
+  .blog-hero {
+    padding: 8rem 1rem;
+  }
+  .blog-hero h1 {
+    font-size: 3.5rem;
+  }
+  .blog-hero p {
+    font-size: 1.5rem;
+    max-width: 900px;
+  }
+
+  .posts-grid {
+    /* grid-template-columns: repeat(3, 1fr); Already set */
+    gap: 3rem; /* Increase gap */
+  }
+
+  .featured-post-content {
+     grid-template-columns: 1.8fr 1fr; /* More emphasis on image */
+     gap: 3rem;
+  }
+  .featured-text {
+    padding: 3rem;
+  }
+  .featured-text h3 {
+    font-size: 2rem;
+  }
+
+  .subscribe-form {
+    max-width: 650px;
+  }
+  .subscribe-form input {
+    padding: 1.2rem 1.8rem;
+    font-size: 1.1rem;
+  }
+  .subscribe-form button {
+    padding: 0 2.5rem;
+    font-size: 1.1rem;
+  }
+}

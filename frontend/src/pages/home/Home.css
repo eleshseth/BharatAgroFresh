@@ -1,0 +1,548 @@
+/* Base styles */
+.home-page {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden; /* Prevent horizontal scroll on the page container */
+}
+
+/* Apply box-sizing globally if not already done in a reset/base CSS */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Hero section enhancements */
+.hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+  min-height: 90vh; /* Use min-height for flexibility */
+  background-attachment: fixed; /* Parallax effect */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* Ensure text is visible */
+  text-align: center; /* Center align content */
+  padding: 4rem 1rem; /* Add padding for smaller viewports */
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem; /* Consistent padding */
+}
+
+.welcome-line {
+  color: white;
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add shadow for readability */
+  line-height: 1.2; /* Adjust line height */
+}
+
+.welcome-line span {
+  display: block; /* Ensure span is on a new line */
+  color: #4CAF50; /* Primary color for emphasis */
+  /* text-decoration: underline #4CAF50; Removed underline for cleaner look */
+  font-size: 4.5rem; /* Slightly larger */
+  margin-top: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Consistent shadow */
+}
+
+.hero p {
+  font-size: 1.8rem;
+  margin-bottom: 2.5rem;
+  color: #e0e0e0; /* Light gray for subtitle */
+  max-width: 700px; /* Limit width for readability */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-button {
+  display: inline-block; /* Correct display for padding/margin */
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: 600; /* Added font weight */
+  border-radius: 50px; /* Pill shape */
+  background: linear-gradient(45deg, #4CAF50, #45a049);
+  color: white; /* Ensure text color */
+  text-decoration: none; /* Remove underline from Link */
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  border: none;
+  cursor: pointer; /* Add pointer cursor */
+  transition: all 0.4s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 25px rgba(76, 175, 80, 0.4);
+  background: linear-gradient(45deg, #45a049, #4CAF50); /* Slightly change gradient on hover */
+}
+
+/* Features section improvements */
+.features {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+  text-align: center; /* Center the section title */
+}
+
+.features h2 {
+  font-size: 2.5rem; /* Consistent section title size */
+  color: #4CAF50;
+  margin-bottom: 3rem;
+  font-weight: 700;
+}
+
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+  gap: 2.5rem;
+  max-width: 1200px; /* Limit width */
+  margin: 0 auto; /* Center grid */
+  padding: 2rem 0; /* Vertical padding */
+}
+
+.feature-card {
+  padding: 3rem 2rem;
+  border-radius: 20px; /* Softer radius */
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transform: translateY(0);
+  transition: all 0.4s ease;
+  text-align: center; /* Center content within card */
+}
+
+.feature-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  font-size: 3.5rem; /* Adjust size as needed */
+  margin-bottom: 1.5rem; /* Space below icon */
+  /* Using text for icons like 🌱, ✓, 🚚 */
+  color: #4CAF50; /* Use primary color */
+  /* If using icon font, style appropriately */
+  /* Example for gradient icon (if needed): */
+  /* background: linear-gradient(45deg, #4CAF50, #8BC34A); */
+  /* -webkit-background-clip: text; */
+  /* background-clip: text; */
+  /* -webkit-text-fill-color: transparent; */
+}
+
+.feature-card h3 {
+  font-size: 1.5rem; /* Heading size */
+  color: #333;
+  margin-bottom: 0.8rem;
+}
+
+.feature-card p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Featured Products styling - Enhanced */
+.featured-products {
+  padding: 5rem 1rem; /* Adjusted padding */
+  background: var(--light-color); /* Use light background variable */
+  text-align: center;
+}
+
+.featured-products h2 {
+  /* font-size: 2.5rem; Use h2 base style */
+  color: var(--primary-color); /* Use variable */
+  margin-bottom: 3.5rem; /* Increased space below title */
+  font-weight: 700;
+  /* font-family: var(--heading-font); Inherited */
+}
+
+/* Using .product-grid class directly */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax slightly */
+  gap: 2rem; /* Adjusted gap */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem; /* Add horizontal padding to grid container */
+  text-align: left;
+}
+
+.product-card {
+  background: var(--white-color); /* Use variable */
+  border-radius: var(--border-radius-lg); /* Use variable */
+  overflow: hidden;
+  box-shadow: var(--shadow-light); /* Use lighter shadow */
+  transition: var(--transition); /* Use variable */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--border-color); /* Add subtle border */
+}
+
+.product-card:hover {
+  transform: translateY(-8px); /* Slightly less lift */
+  box-shadow: var(--shadow-md); /* Use medium shadow on hover */
+}
+
+.product-image {
+  /* height: 220px; Removed fixed height */
+  aspect-ratio: 1 / 1; /* Make the image container square */
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid var(--border-color); /* Separator line */
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease; /* Smoother transition */
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.05); /* Slightly reduced scale */
+}
+
+.product-details {
+  padding: 1.5rem; /* Consistent padding */
+  background: var(--white-color); /* Use variable */
+  flex-grow: 1;
+  display: flex; /* Use flex to align items */
+  flex-direction: column; /* Revert to column layout for details */
+  /* justify-content: space-between; Removed */
+  /* align-items: flex-start; Removed */
+  gap: 0.5rem; /* Adjusted gap for vertical stacking */
+}
+
+/* Remove .product-info wrapper styles if they exist */
+.product-info { /* New wrapper for title and description */
+  flex-grow: 1; /* Allow info to take available space */
+}
+
+.product-details h3 {
+  /* font-size: 1.3rem; Use h3/h4 base style or adjust */
+  color: var(--text-color); /* Use variable */
+  margin-top: 0; /* Remove top margin */
+  margin-bottom: 0.25rem; /* Further reduced margin */
+  font-weight: 600;
+  line-height: 1.3; /* Adjust line height */
+  /* font-family: var(--heading-font); Inherited */
+}
+
+.product-details p {
+  color: var(--text-color-light); /* Use variable */
+  /* font-size: 0.9rem; Use p base style or adjust */
+  line-height: 1.5; /* Adjust line height */
+  margin-bottom: 1rem; /* Add margin below description */
+  flex-grow: 1; /* Allow description to take space */
+  /* font-family: var(--body-font); Inherited */
+}
+
+.view-product-btn {
+  /* Inherit base button styles or redefine */
+  display: block; /* Revert to block */
+  width: auto; /* Reset width */
+  margin-top: auto; /* Push button to bottom */
+  margin-left: 0; /* Align left */
+  margin-right: 0; /* Align right */
+  padding: 0.6rem 1.2rem; /* Adjusted padding */
+  text-align: center;
+  background: var(--primary-color); /* Simpler background */
+  color: var(--white-color); /* Use variable */
+  border-radius: var(--border-radius-md); /* Use variable */
+  font-weight: 500; /* Adjusted weight */
+  font-size: 0.9rem; /* Adjusted font size */
+  text-decoration: none;
+  transition: var(--transition); /* Use variable */
+  border: none;
+  cursor: pointer;
+  align-self: flex-start; /* Align button to start */
+  white-space: nowrap; /* Prevent text wrapping */
+  /* font-family: var(--body-font); Ensure font consistency */
+  /* box-shadow: var(--shadow); Removed default shadow */
+}
+
+.view-product-btn:hover {
+  background: var(--secondary-color); /* Use secondary color on hover */
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm); /* Use small shadow */
+}
+
+/* Testimonials enhancement */
+.testimonials {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+  text-align: center; /* Center section title */
+}
+
+.testimonials h2 {
+  font-size: 2.5rem;
+  color: #4CAF50;
+  margin-bottom: 3rem;
+  font-weight: 700;
+}
+
+/* Added container for testimonials if needed for layout */
+.testimonial-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 2rem;
+  max-width: 1000px; /* Adjust max-width */
+  margin: 0 auto; /* Center container */
+}
+
+.testimonial {
+  padding: 2.5rem; /* Adjusted padding */
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  text-align: left; /* Align text left within testimonial */
+}
+
+.testimonial:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.quote {
+  font-size: 1.1rem; /* Adjusted size */
+  line-height: 1.7; /* Adjusted line height */
+  color: #444;
+  font-style: italic; /* Italicize quote */
+  margin-bottom: 1.5rem; /* Space below quote */
+  position: relative;
+  padding-left: 2rem; /* Space for quote mark */
+}
+
+.quote::before {
+  content: '“'; /* Opening quote mark */
+  position: absolute;
+  left: 0;
+  top: -0.2em; /* Adjust vertical position */
+  font-size: 3rem; /* Large quote mark */
+  color: #4CAF50; /* Primary color */
+  opacity: 0.5;
+  line-height: 1;
+}
+
+.customer {
+  margin-top: 1.5rem; /* Adjusted margin */
+  font-size: 1rem; /* Adjusted size */
+  font-weight: 600; /* Make customer name bold */
+  color: #4CAF50; /* Primary color */
+  text-align: right; /* Align customer name right */
+}
+
+/* Newsletter section improvements */
+.newsletter {
+  padding: 5rem 2rem; /* Adjusted padding */
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white; /* Text color for newsletter section */
+  text-align: center; /* Center content */
+}
+
+.newsletter h2 {
+  color: white; 
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.newsletter p {
+  color: rgba(255, 255, 255, 0.74); /* Text color for newsletter description */
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.9; /* Slightly transparent text */
+}
+
+.newsletter-form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  gap: 1rem; /* Space between input and button */
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle background */
+  padding: 0.5rem; /* Padding around form */
+  border-radius: 50px; /* Rounded container */
+}
+
+.newsletter-form input {
+  flex: 1; /* Take available space */
+  padding: 1rem 1.5rem; /* Adjusted padding */
+  border-radius: 50px; /* Match container */
+  border: none;
+  font-size: 1rem; /* Adjusted font size */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Inner shadow */
+  background-color: white; /* White background */
+  color: #333; /* Text color */
+}
+
+.newsletter-form input::placeholder {
+  color: #999; /* Placeholder color */
+}
+
+.newsletter-form button {
+  padding: 1rem 2.5rem; /* Adjusted padding */
+  border-radius: 50px; /* Match container */
+  background: #FF9800; /* Accent color */
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap; /* Prevent button text wrapping */
+}
+
+.newsletter-form button:hover {
+  background: #F57C00; /* Darker accent */
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+}
+
+/* --- Responsive Design --- */
+
+/* Larger Tablets / Small Laptops */
+@media (max-width: 1200px) {
+  .welcome-line {
+    font-size: 3.5rem;
+  }
+  .welcome-line span {
+    font-size: 4rem;
+  }
+  /* Feature cards and product grid already use auto-fit, should adapt */
+}
+
+/* Tablets */
+@media (max-width: 992px) {
+  .welcome-line {
+    font-size: 3rem;
+  }
+  .welcome-line span {
+    font-size: 3.5rem;
+  }
+  .hero p {
+    font-size: 1.5rem;
+  }
+  .feature-cards {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  .product-grid {
+     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .testimonial-container {
+     grid-template-columns: 1fr; /* Stack testimonials */
+     max-width: 600px; /* Adjust width for single column */
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 70vh; /* Reduce height */
+    background-attachment: scroll; /* Disable parallax on mobile */
+    padding: 3rem 1rem;
+  }
+  .welcome-line {
+    font-size: 2.5rem;
+  }
+  .welcome-line span {
+    font-size: 3rem;
+  }
+  .hero p {
+    font-size: 1.2rem;
+  }
+  .cta-button {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
+
+  .features, .featured-products, .testimonials, .newsletter {
+    padding: 4rem 1rem; /* Reduce padding */
+  }
+  .features h2, .featured-products h2, .testimonials h2, .newsletter h2 {
+    font-size: 2rem; /* Reduce section title size */
+    margin-bottom: 2rem;
+  }
+
+  .feature-cards, .product-grid {
+    gap: 1.5rem; /* Reduce gap */
+  }
+
+  .newsletter-form {
+    flex-direction: column; /* Stack form elements */
+    gap: 1rem;
+    background-color: transparent; /* Remove container background */
+    padding: 0;
+    border-radius: 0;
+  }
+  .newsletter-form input, .newsletter-form button {
+    width: 100%; /* Full width */
+    border-radius: 8px; /* Standard radius */
+    padding: 1rem; /* Adjust padding */
+    font-size: 1rem;
+  }
+  .newsletter-form input {
+     box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Add shadow to input */
+  }
+   .newsletter-form button {
+     box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Add shadow to button */
+  }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 576px) {
+  .welcome-line {
+    font-size: 2rem;
+  }
+  .welcome-line span {
+    font-size: 2.5rem;
+  }
+  .hero p {
+    font-size: 1.1rem;
+  }
+
+  .features h2, .featured-products h2, .testimonials h2, .newsletter h2 {
+    font-size: 1.8rem;
+  }
+
+  .feature-card {
+    padding: 2rem 1.5rem;
+  }
+  .product-details {
+    padding: 1rem;
+  }
+   .product-details h3 {
+    font-size: 1.2rem;
+  }
+   .product-details p {
+    font-size: 0.9rem;
+  }
+  .view-product-btn {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  .testimonial {
+    padding: 2rem;
+  }
+  .quote {
+    font-size: 1rem;
+    padding-left: 1.5rem;
+  }
+  .quote::before {
+    font-size: 2.5rem;
+  }
+  .customer {
+    font-size: 0.9rem;
+  }
+  .newsletter p {
+    color: white;
+    font-size: 1rem;
+  }
+}
