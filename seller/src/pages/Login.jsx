@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './Login.css';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./Login.css";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -13,35 +13,35 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!email || !password) {
-      setError('Please enter both email and password.');
+      setError("Please enter both email and password.");
       return;
     }
 
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/seller/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:6005/api/seller/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
-      if (data.status === 'success') {
+      if (data.status === "success") {
         // Store token and seller info
-        localStorage.setItem('sellerToken', data.token);
-        localStorage.setItem('sellerInfo', JSON.stringify(data.data.seller));
-        navigate('/dashboard');
+        localStorage.setItem("sellerToken", data.token);
+        localStorage.setItem("sellerInfo", JSON.stringify(data.data.seller));
+        navigate("/dashboard");
       } else {
-        throw new Error(data.message || 'Login failed');
+        throw new Error(data.message || "Login failed");
       }
     } catch (error) {
-      setError(error.message || 'Login failed. Please try again.');
+      setError(error.message || "Login failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -89,12 +89,8 @@ function Login() {
             </div>
           </div>
 
-          <button 
-            type="submit" 
-            className="auth-button"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Logging in...' : 'Login'}
+          <button type="submit" className="auth-button" disabled={isLoading}>
+            {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
 

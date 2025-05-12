@@ -1,61 +1,61 @@
-import { useState } from 'react';
-import './AddProduct.css';
+import { useState } from "react";
+import "./AddProduct.css";
 
 function AddProduct() {
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    category: '',
-    stock: ''
+    name: "",
+    description: "",
+    price: "",
+    category: "",
+    stock: "",
   });
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const categories = ['Vegetables', 'Fruits', 'Grains', 'Spices', 'Organic'];
+  const categories = ["Vegetables", "Fruits", "Grains", "Spices", "Organic"];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
     setIsLoading(true);
 
     try {
-      const token = localStorage.getItem('sellerToken');
-      const response = await fetch('http://localhost:5000/api/products', {
-        method: 'POST',
+      const token = localStorage.getItem("sellerToken");
+      const response = await fetch("http://localhost:6005/api/products", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
 
-      if (data.status === 'success') {
-        setSuccess('Product added successfully!');
+      if (data.status === "success") {
+        setSuccess("Product added successfully!");
         setFormData({
-          name: '',
-          description: '',
-          price: '',
-          category: '',
-          stock: ''
+          name: "",
+          description: "",
+          price: "",
+          category: "",
+          stock: "",
         });
       } else {
-        throw new Error(data.message || 'Failed to add product');
+        throw new Error(data.message || "Failed to add product");
       }
     } catch (error) {
-      setError(error.message || 'Failed to add product. Please try again.');
+      setError(error.message || "Failed to add product. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -64,7 +64,7 @@ function AddProduct() {
   return (
     <div className="add-product-container">
       <h2>Add New Product</h2>
-      
+
       {error && <div className="error-message">{error}</div>}
       {success && <div className="success-message">{success}</div>}
 
@@ -116,8 +116,10 @@ function AddProduct() {
             required
           >
             <option value="">Select Category</option>
-            {categories.map(category => (
-              <option key={category} value={category}>{category}</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
             ))}
           </select>
         </div>
@@ -135,12 +137,8 @@ function AddProduct() {
           />
         </div>
 
-        <button 
-          type="submit" 
-          className="submit-btn" 
-          disabled={isLoading}
-        >
-          {isLoading ? 'Adding Product...' : 'Add Product'}
+        <button type="submit" className="submit-btn" disabled={isLoading}>
+          {isLoading ? "Adding Product..." : "Add Product"}
         </button>
       </form>
     </div>

@@ -33,8 +33,8 @@ app.use((err, req, res, next) => {
     message: 'Something went wrong!',
   });
 });
-app.listen(5000, () => {
-  console.log('Server is running on port 5000');
+app.listen(6005, () => {
+  console.log('Server is running on port 6005');
 });
 
 export default app;

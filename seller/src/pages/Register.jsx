@@ -1,70 +1,73 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './Register.css';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./Register.css";
 
 function Register() {
   const [formData, setFormData] = useState({
-    businessName: '',
-    ownerName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    businessType: '',
-    gstNumber: '',
-    phoneNumber: '',
-    address: ''
+    businessName: "",
+    ownerName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    businessType: "",
+    gstNumber: "",
+    phoneNumber: "",
+    address: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     // Basic validation
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/seller/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          businessName: formData.businessName,
-          ownerName: formData.ownerName,
-          email: formData.email,
-          password: formData.password,
-          businessType: formData.businessType,
-          gstNumber: formData.gstNumber,
-          phoneNumber: formData.phoneNumber,
-          address: formData.address
-        }),
-      });
+      const response = await fetch(
+        "http://localhost:6005/api/seller/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            businessName: formData.businessName,
+            ownerName: formData.ownerName,
+            email: formData.email,
+            password: formData.password,
+            businessType: formData.businessType,
+            gstNumber: formData.gstNumber,
+            phoneNumber: formData.phoneNumber,
+            address: formData.address,
+          }),
+        }
+      );
 
       const data = await response.json();
 
-      if (data.status === 'success') {
-        navigate('/login');
+      if (data.status === "success") {
+        navigate("/login");
       } else {
-        throw new Error(data.message || 'Registration failed');
+        throw new Error(data.message || "Registration failed");
       }
     } catch (error) {
-      setError(error.message || 'Registration failed. Please try again.');
+      setError(error.message || "Registration failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -195,12 +198,8 @@ function Register() {
             />
           </div>
 
-          <button 
-            type="submit" 
-            className="auth-button"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Registering...' : 'Register'}
+          <button type="submit" className="auth-button" disabled={isLoading}>
+            {isLoading ? "Registering..." : "Register"}
           </button>
         </form>
 

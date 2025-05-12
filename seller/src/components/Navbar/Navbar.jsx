@@ -1,28 +1,35 @@
-import { Link, useNavigate } from 'react-router-dom';
-import './Navbar.css';
+import { Link, useNavigate } from "react-router-dom";
+import "./Navbar.css";
 
 function Navbar() {
   const navigate = useNavigate();
-  const sellerInfo = JSON.parse(localStorage.getItem('sellerInfo')) || {};
+  const sellerInfo = JSON.parse(localStorage.getItem("sellerInfo")) || {};
 
   const handleLogout = () => {
-    localStorage.removeItem('sellerToken');
-    localStorage.removeItem('sellerInfo');
-    navigate('/login');
+    localStorage.removeItem("sellerToken");
+    localStorage.removeItem("sellerInfo");
+    navigate("/login");
   };
 
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <h1 className="company-name">Bharat Agro Fresh</h1>
+        <h1 className="company-name">
+          <img
+            src="./logo.png"
+            alt="Company Logo"
+            className="company-logo"
+          />
+          Bharat Agro Fresh
+        </h1>
       </div>
-      
+
       <div className="navbar-right">
         <div className="user-profile">
           <div className="profile-info">
             <span className="user-name">{sellerInfo.businessName}</span>
             <div className="profile-image">
-              {sellerInfo.businessName?.charAt(0).toUpperCase() || 'S'}
+              {sellerInfo.businessName?.charAt(0).toUpperCase() || "S"}
             </div>
           </div>
           <button onClick={handleLogout} className="logout-btn">

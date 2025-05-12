@@ -1,86 +1,128 @@
 .add-product-container {
-  padding: 2rem;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 2.5rem;
+  max-width: 900px;
+  margin: 2rem auto;
 }
 
 .add-product-container h2 {
-  margin-bottom: 2rem;
-  color: #2c3e50;
+  color: #1a1a1a;
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  font-weight: 600;
 }
 
 .add-product-form {
   display: grid;
-  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
 }
 
 .form-group label {
-  color: #34495e;
+  display: block;
+  color: #2c3e50;
   font-weight: 500;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
 }
 
 .form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 0.75rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 6px;
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-.form-group textarea {
-  min-height: 100px;
-  resize: vertical;
+  transition: all 0.3s ease;
+  background-color: #f8fafc;
 }
 
 .form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: #3498db;
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #4299e1;
   outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+  background-color: #ffffff;
+}
+
+.form-group textarea {
+  min-height: 150px;
+  resize: vertical;
+  grid-column: 1 / -1;
 }
 
 .submit-btn {
-  background: #2ecc71;
+  grid-column: 1 / -1;
+  background-color: #38a169;
   color: white;
-  padding: 1rem;
   border: none;
-  border-radius: 6px;
-  font-size: 1rem;
+  border-radius: 10px;
+  padding: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
 }
 
 .submit-btn:hover {
-  background: #27ae60;
+  background-color: #2f855a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(56, 161, 105, 0.2);
 }
 
 .submit-btn:disabled {
-  background: #95a5a6;
+  background-color: #a0aec0;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.error-message,
+.success-message {
+  grid-column: 1 / -1;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
 }
 
 .error-message {
-  background: #fee;
-  color: #e74c3c;
-  padding: 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
+  background-color: #fff5f5;
+  color: #e53e3e;
+  border: 1px solid #feb2b2;
 }
 
 .success-message {
-  background: #e8f8f5;
-  color: #27ae60;
-  padding: 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
+  background-color: #f0fff4;
+  color: #38a169;
+  border: 1px solid #9ae6b4;
+}
+
+@media (max-width: 768px) {
+  .add-product-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .add-product-form {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
 }
