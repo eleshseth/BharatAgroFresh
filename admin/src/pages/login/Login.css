@@ -1,0 +1,123 @@
+.login-container {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 3rem;
+  max-width: 450px;
+  margin: 6rem auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #38a169, #4299e1);
+}
+
+.login-container h2 {
+  color: #1a1a1a;
+  font-size: 2.2rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  color: #2d3748;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 1.1rem 1.2rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  transition: all 0.3s ease;
+  background-color: #f8fafc;
+  color: #2d3748;
+}
+
+.form-group input:focus {
+  border-color: #4299e1;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.1);
+  background-color: #ffffff;
+}
+
+.form-group input::placeholder {
+  color: #a0aec0;
+}
+
+.login-btn {
+  background: linear-gradient(45deg, #38a169, #2f855a);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.login-btn:hover {
+  background: linear-gradient(45deg, #2f855a, #276749);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(56, 161, 105, 0.25);
+}
+
+.login-btn:disabled {
+  background: #cbd5e0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.error-message {
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  background-color: #fff5f5;
+  color: #e53e3e;
+  border: 1px solid #feb2b2;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    margin: 2rem 1rem;
+    padding: 2rem;
+  }
+  
+  .login-container h2 {
+    font-size: 1.8rem;
+  }
+}
