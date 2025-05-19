@@ -1,25 +1,18 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './UserProfile.css';
 
 function UserProfile({ user, handleLogout }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // Early return with loading state or null
-  if (!user?.email) {
-    return null;
-  }
-
+  // Get user initial for avatar
   const getInitial = (name) => {
-    return name && typeof name === 'string' ? name.charAt(0).toUpperCase() : 'U';
+    return name ? name.charAt(0).toUpperCase() : 'U';
   };
 
   return (
     <div className="user-profile">
-      <div 
-        className="profile-trigger" 
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-      >
+      <div className="profile-trigger" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
         <div className="avatar">
           {getInitial(user?.name)}
         </div>
@@ -31,15 +24,17 @@ function UserProfile({ user, handleLogout }) {
           <div className="dropdown-header">
             <div className="user-info">
               <h4>{user?.name || 'User'}</h4>
-              <p>{user?.email || 'No email'}</p>
-              {user?.phoneNumber && <p>Phone: {user.phoneNumber}</p>}
+              <p>{user?.email}</p>
             </div>
           </div>
-          
           <div className="dropdown-menu">
+            <Link to="/profile" className="menu-item">
+              <i className="material-icons">person</i>
+              Profile
+            </Link>
             <Link to="/orders" className="menu-item">
               <i className="material-icons">shopping_bag</i>
-              My Orders
+              Orders
             </Link>
             <button onClick={handleLogout} className="menu-item logout">
               <i className="material-icons">exit_to_app</i>

@@ -20,25 +20,22 @@
 /* ======================================== */
 header {
   background: var(--white-color);
-  padding: 0.75rem 0;
   box-shadow: var(--shadow-sm);
   position: fixed; /* Use fixed for sticky top */
-  top: 0;
-  left: 0;
-  z-index: 1000;
+  z-index: 1002;
   width: 100%;
   border-bottom: 1px solid var(--border-color);
 }
 
 /* Content Wrapper */
 .header-content-wrapper {
-  max-width: 1400px;
+  max-width:1400px;
   margin: auto;
   display: flex;
   justify-content: space-between; /* Logo left, rest right */
   align-items: center;
   gap: 1rem; /* Base gap */
-  padding: 0 2rem;
+  padding: 0 ;
   position: relative; /* For absolute positioning of mobile menu */
 }
 
@@ -70,7 +67,7 @@ header {
 }
 
 .logo-img {
-  height: 100px; /* Adjust as needed */
+  height: 70px; /* Adjust as needed */
   object-fit: contain;
 }
 
@@ -326,7 +323,7 @@ header {
   .hamburger-menu {
     display: block; /* Show hamburger */
     order: 3; /* Place hamburger at the end */
-    /* margin-left: 0.5rem; */ /* Spacing handled by wrapper gap/margins */
+    /* margin-left: 0.5rem; / / Spacing handled by wrapper gap/margins */
   }
 
   /* Style Mobile Nav Links within Dropdown */
@@ -442,4 +439,3 @@ header {
 /* Example: */
 /* .user-profile .profile-dropdown { ... } */
 /* .user-profile .profile-dropdown::before { ... } */
-  

@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-const userSchema = new mongoose.Schema({
-  name: {
+const adminSchema = new mongoose.Schema({
+  username: {
     type: String,
-    required: [true, 'Name is required'],
+    required: [true, 'Username is required'],
+    unique: true,
     trim: true
   },
   email: {
@@ -14,11 +15,6 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     trim: true
   },
-  mobile: {
-    type: String,
-    required: [true, 'Mobile number is required'],
-    trim: true
-  },
   passwordHash: {
     type: String,
     required: [true, 'Password is required'],
@@ -26,8 +22,8 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['customer', 'b2bUser'],
-    default: 'customer'
+    enum: ['super-admin', 'admin'],
+    default: 'admin'
   },
   isActive: {
     type: Boolean,
@@ -39,17 +35,17 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-// Pre-save middleware to hash password
-userSchema.pre('save', async function(next) {
+// Hash password before saving
+adminSchema.pre('save', async function(next) {
   if (!this.isModified('passwordHash')) return next();
   this.passwordHash = await bcrypt.hash(this.passwordHash, 12);
   next();
 });
 
-// Method to check password
-userSchema.methods.comparePassword = async function(candidatePassword) {
+// Method to compare password
+adminSchema.methods.comparePassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.passwordHash);
 };
 
-const User = mongoose.model('User', userSchema);
-export default User;
+const Admin = mongoose.model('Admin', adminSchema);
+export default Admin;

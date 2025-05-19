@@ -176,13 +176,7 @@ select:focus {
 /* Also removed associated responsive styles for header elements */
 
 /* --- Main Content Area --- */
-main {
-  flex: 1; /* Allows main to grow and push footer down */
-  /* padding: 2rem 0; */ /* Remove old vertical padding */
-  padding-top: 7rem; /* Add padding-top for fixed header (approx 110px) */
-  padding-bottom: 2rem; /* Keep bottom padding */
-  /* background-color: #f0f2f5; Optional: slightly different bg for main */
-}
+
 
 /* Loading and Error States */
 .loading-container, .error-container {

@@ -4,7 +4,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
 import sellerRoutes from './routes/sellerRoutes.js';
-import productRoutes from './routes/productRoutes.js';  // Add this import
+import productRoutes from './routes/productRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 dotenv.config();
 
@@ -17,7 +18,8 @@ app.use(cors());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/seller', sellerRoutes);
-app.use('/api/products', productRoutes);  // Add this line
+app.use('/api/products', productRoutes);
+app.use('/api/admin', adminRoutes);  // Add this line
 
 // Connect to MongoDB
 mongoose

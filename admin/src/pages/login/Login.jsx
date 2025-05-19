@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
@@ -7,6 +8,8 @@ const Login = () => {
     password: ''
   });
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,12 +22,30 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
     
     try {
-      // Add your login logic here
-      console.log('Login attempt with:', formData);
+      const response = await fetch('http://localhost:6005/api/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.status === 'success') {
+        localStorage.setItem('adminToken', data.token);
+        localStorage.setItem('adminInfo', JSON.stringify(data.data.admin));
+        navigate('/dashboard');
+      } else {
+        throw new Error(data.message || 'Login failed');
+      }
     } catch (err) {
-      setError('Invalid email or password');
+      setError(err.message || 'Invalid email or password');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -43,6 +64,7 @@ const Login = () => {
             onChange={handleChange}
             required
             placeholder="Enter your email"
+            disabled={isLoading}
           />
         </div>
         <div className="form-group">
@@ -55,10 +77,11 @@ const Login = () => {
             onChange={handleChange}
             required
             placeholder="Enter your password"
+            disabled={isLoading}
           />
         </div>
-        <button type="submit" className="login-btn">
-          Login
+        <button type="submit" className="login-btn" disabled={isLoading}>
+          {isLoading ? 'Logging in...' : 'Login'}
         </button>
       </form>
     </div>

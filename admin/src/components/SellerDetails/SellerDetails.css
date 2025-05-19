@@ -1,0 +1,117 @@
+.seller-details-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.seller-details-modal {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.seller-details-content h2 {
+  color: #2c3e50;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #eee;
+}
+
+.detail-group {
+  margin-bottom: 25px;
+}
+
+.detail-group h3 {
+  color: #34495e;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.detail-row {
+  display: flex;
+  margin-bottom: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.detail-row .label {
+  width: 150px;
+  color: #666;
+  font-weight: 500;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-badge.active {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.inactive {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.status-badge.pending {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.status-badge.verified {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.status-badge.rejected {
+  background: #fce4ec;
+  color: #c2185b;
+}
+
+@media (max-width: 768px) {
+  .seller-details-modal {
+    padding: 20px;
+    width: 95%;
+  }
+
+  .detail-row {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .detail-row .label {
+    width: 100%;
+  }
+}
