@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/login/Login.jsx';
 import Dashboard from './pages/dashboard/Dashboard.jsx';
-import './App.css';
 
 function App() {
   return (

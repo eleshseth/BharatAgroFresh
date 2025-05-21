@@ -13,10 +13,12 @@ function Sidebar({ setCurrentView }) {
             <span>Active Sellers</span>
           </button>
           <button 
+
             onClick={() => setCurrentView('active-customers')} 
             className="nav-item"
           >
             <i className="material-icons">people</i>
+
             <span>Active Customers</span>
           </button>
         </nav>

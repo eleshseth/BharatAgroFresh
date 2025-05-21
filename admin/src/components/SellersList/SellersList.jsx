@@ -30,11 +30,11 @@ function SellersList() {
   };
 
   if (loading) {
-    return <div className="loading">Loading sellers...</div>;
+    return <div className="sellers-loading">Loading sellers...</div>;
   }
 
   if (error) {
-    return <div className="error-message">{error}</div>;
+    return <div className="sellers-error">{error}</div>;
   }
 
   const handleViewDetails = (seller) => {
@@ -42,30 +42,29 @@ function SellersList() {
   };
 
   return (
-    <div className="sellers-list-container">
-      <h2>Active Sellers</h2>
-      <div className="sellers-grid">
-        <div className="grid-header">
-          <div>Business Name</div>
-          <div>Owner Name</div>
-          <div>Phone Number</div>
-          <div>Status</div>
-          <div>Actions</div>
+    <section className="sellers-list-wrapper">
+      <h2 className="sellers-title">Active Sellers</h2>
+      <div className="sellers-table">
+        <div className="sellers-table-header">
+          <div className="header-cell">Business Name</div>
+          <div className="header-cell">Owner Name</div>
+          <div className="header-cell">Phone Number</div>
+          <div className="header-cell">Status</div>
+          <div className="header-cell">Actions</div>
         </div>
+
         {sellers.map((seller) => (
-          <div key={seller._id} className="seller-row">
-            <div>{seller.businessName}</div>
-            <div>{seller.ownerName}</div>
-            <div>{seller.phoneNumber}</div>
-            <div>
+          <div key={seller._id} className="sellers-table-row">
+            <div className="row-cell" data-label="Business Name">{seller.businessName}</div>
+            <div className="row-cell" data-label="Owner Name">{seller.ownerName}</div>
+            <div className="row-cell" data-label="Phone Number">{seller.phoneNumber}</div>
+            <div className="row-cell" data-label="Status">
               <span className={`status-badge ${seller.isActive ? 'active' : 'inactive'}`}>
                 {seller.isActive ? 'Active' : 'Inactive'}
               </span>
             </div>
-            <div className="action-buttons">
-              <button 
-                className={`status-btn ${seller.isActive ? 'deactivate' : 'activate'}`}
-              >
+            <div className="row-cell action-cell" data-label="Actions">
+              <button className={`status-btn ${seller.isActive ? 'deactivate' : 'activate'}`}>
                 {seller.isActive ? 'Deactivate' : 'Activate'}
               </button>
               <button 
@@ -85,7 +84,7 @@ function SellersList() {
           onClose={() => setSelectedSeller(null)} 
         />
       )}
-    </div>
+    </section>
   );
 }
 

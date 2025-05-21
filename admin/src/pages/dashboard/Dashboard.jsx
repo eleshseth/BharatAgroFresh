@@ -30,9 +30,11 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <Navbar />
-      <Sidebar setCurrentView={setCurrentView} />
-      <div className="dashboard-content">
-        {renderContent()}
+      <div className="dashboard-layout"> {/* Added a wrapper for sidebar and content */}
+        <Sidebar setCurrentView={setCurrentView} />
+        <div className="dashboard-content">
+          {renderContent()}
+        </div>
       </div>
     </div>
   );

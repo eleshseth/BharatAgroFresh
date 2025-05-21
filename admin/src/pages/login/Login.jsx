@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import logo from '../../../public/logo.png'
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const Login = () => {
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // <-- Added state
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,7 +25,7 @@ const Login = () => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
-    
+
     try {
       const response = await fetch('http://localhost:6005/api/admin/login', {
         method: 'POST',
@@ -51,6 +53,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <img src={logo} alt="Bharat Agro Fresh" className="login-logo" />
       <h2>Admin Login</h2>
       {error && <div className="error-message">{error}</div>}
       <form className="login-form" onSubmit={handleSubmit}>
@@ -69,16 +72,27 @@ const Login = () => {
         </div>
         <div className="form-group">
           <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            placeholder="Enter your password"
-            disabled={isLoading}
-          />
+          <div className="password-input-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              placeholder="Enter your password"
+              disabled={isLoading}
+            />
+            <button
+              type="button"
+              className="show-password-btn"
+              onClick={() => setShowPassword(!showPassword)}
+              disabled={isLoading}
+            
+              >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
         </div>
         <button type="submit" className="login-btn" disabled={isLoading}>
           {isLoading ? 'Logging in...' : 'Login'}
