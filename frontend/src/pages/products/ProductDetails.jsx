@@ -1,13 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ProductDetails.css';
-import { products as sampleProducts } from '../../assets/assets';
 
-// Removed unused addToCart prop from the function signature
 function ProductDetails({ isLoggedIn, cartItems, setCartItems }) {
-  // Add this log back if you removed it, or keep it if present
-  console.log('ProductDetails Render - Type of setCartItems:', typeof setCartItems);
-
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
@@ -15,28 +10,29 @@ function ProductDetails({ isLoggedIn, cartItems, setCartItems }) {
   const [error, setError] = useState(null);
   const [selectedWeight, setSelectedWeight] = useState('');
 
-  // Log props on render
-  console.log('ProductDetails Render - Props:', { isLoggedIn, cartItems });
-
   useEffect(() => {
-    // Replace API fetch with local data lookup
-    try {
-      setLoading(true);
-      const foundProduct = sampleProducts.find(p => p.id === parseInt(id));
-      
-      if (!foundProduct) {
-        throw new Error('Product not found');
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`http://localhost:6005/api/products/${id}`);
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+          setProduct(data.data.product);
+          if (data.data.product.weightOptions && data.data.product.weightOptions.length > 0) {
+            setSelectedWeight(data.data.product.weightOptions[0]);
+          }
+        } else {
+          throw new Error(data.message || 'Failed to fetch product');
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
+    };
 
-      setProduct(foundProduct);
-      if (foundProduct.weightOptions && foundProduct.weightOptions.length > 0) {
-        setSelectedWeight(foundProduct.weightOptions[0]);
-      }
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+    fetchProduct();
   }, [id]);
 
   const getItemQuantity = (productId) => {

@@ -1,12 +1,19 @@
 import { useState } from "react";
 import "./AddProduct.css";
 
-function AddProduct() {
+function AddProduct({ onProductAdded }) {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     price: "",
     category: "",
+    image: "", // Added missing required field
+    weightOptions: ["1kg", "5kg", "10kg"], // Added with default options
+    moq: "", // Added missing required field
+    packaging: "", // Added missing required field
+    delivery: "", // Added missing required field
+    shipping: "", // Added missing required field
+    locations: "", // Added missing required field
     stock: "",
   });
   const [error, setError] = useState("");
@@ -49,8 +56,20 @@ function AddProduct() {
           description: "",
           price: "",
           category: "",
+          image: "",
+          weightOptions: ["1kg", "5kg", "10kg"],
+          moq: "",
+          packaging: "",
+          delivery: "",
+          shipping: "",
+          locations: "",
           stock: "",
         });
+        
+        // Call the callback if provided
+        if (onProductAdded) {
+          onProductAdded();
+        }
       } else {
         throw new Error(data.message || "Failed to add product");
       }
@@ -89,19 +108,17 @@ function AddProduct() {
             value={formData.description}
             onChange={handleChange}
             required
-          />
+          ></textarea>
         </div>
 
         <div className="form-group">
-          <label htmlFor="price">Price (₹)</label>
+          <label htmlFor="price">Price (₹/kg)</label>
           <input
             type="number"
             id="price"
             name="price"
             value={formData.price}
             onChange={handleChange}
-            min="0"
-            step="0.01"
             required
           />
         </div>
@@ -125,20 +142,101 @@ function AddProduct() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="stock">Stock Quantity</label>
+          <label htmlFor="image">Image URL</label>
+          <input
+            type="text"
+            id="image"
+            name="image"
+            value={formData.image}
+            onChange={handleChange}
+            placeholder="Enter image URL"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="moq">Minimum Order Quantity</label>
+          <input
+            type="text"
+            id="moq"
+            name="moq"
+            value={formData.moq}
+            onChange={handleChange}
+            placeholder="e.g., 5kg"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="packaging">Packaging</label>
+          <input
+            type="text"
+            id="packaging"
+            name="packaging"
+            value={formData.packaging}
+            onChange={handleChange}
+            placeholder="e.g., Available in 5kg & 10kg bags"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="delivery">Delivery</label>
+          <input
+            type="text"
+            id="delivery"
+            name="delivery"
+            value={formData.delivery}
+            onChange={handleChange}
+            placeholder="e.g., 2-3 days"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="shipping">Shipping</label>
+          <input
+            type="text"
+            id="shipping"
+            name="shipping"
+            value={formData.shipping}
+            onChange={handleChange}
+            placeholder="e.g., Free shipping on orders above ₹1000"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="locations">Locations</label>
+          <input
+            type="text"
+            id="locations"
+            name="locations"
+            value={formData.locations}
+            onChange={handleChange}
+            placeholder="e.g., Delhi, Mumbai, Bangalore"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="stock">Stock (units)</label>
           <input
             type="number"
             id="stock"
             name="stock"
             value={formData.stock}
             onChange={handleChange}
-            min="0"
             required
           />
         </div>
 
-        <button type="submit" className="submit-btn" disabled={isLoading}>
-          {isLoading ? "Adding Product..." : "Add Product"}
+        <button
+          type="submit"
+          className="submit-btn"
+          disabled={isLoading}
+        >
+          {isLoading ? "Adding..." : "Add Product"}
         </button>
       </form>
     </div>

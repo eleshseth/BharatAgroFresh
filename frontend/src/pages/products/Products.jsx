@@ -1,347 +1,227 @@
-import React, { useState, useEffect } from 'react'; // Import useEffect
-import {  useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
-import './Products.css'; // Ensure CSS is imported
-// Example icons (install react-icons: npm install react-icons)
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Products.css';
 import { FaStar } from 'react-icons/fa';
 
-function Products({ products, setCartItems, cartItems, isLoggedIn }) {
+function Products({ setCartItems, isLoggedIn }) {
   const navigate = useNavigate();
-  const location = useLocation(); // Get location object for query params
-
-  // --- State for Filters ---
+  
+  // State for products and loading
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  // State for filters
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [priceRange, setPriceRange] = useState({ min: '', max: '' });
-  // const [minRating, setMinRating] = useState(0); // REMOVED Rating filter state
-  // const [availability, setAvailability] = useState('all'); // REMOVED Availability filter state
   const [searchQuery, setSearchQuery] = useState('');
-
-  // --- State for Sorting ---
-  const [sortBy, setSortBy] = useState('default'); // 'default', 'price-asc', 'price-desc', 'newest', 'rating'
-
-  // --- Categories ---
-  const categories = ['All', 'Vegetables', 'Fruits', 'Grains', 'Spices', 'Flowers']; // Keep this
-
-  // --- Effect to read search query from URL ---
+  const [sortBy, setSortBy] = useState('default');
+  
+  // Available categories
+  const categories = ['All', 'Vegetables', 'Fruits', 'Grains', 'Spices', 'Flowers'];
+  
+  // Fetch products from API
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const search = params.get('search') || '';
-    setSearchQuery(search);
-    // Optional: Reset other filters when search changes? Decide based on UX preference.
-    // setCategoryFilter('All');
-    // setPriceRange({ min: '', max: '' });
-    // setMinRating(0); // REMOVED
-    // setAvailability('all'); // REMOVED
-  }, [location.search]);
-
-
-  // --- Filtering Logic ---
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:6005/api/products');
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+          setProducts(data.data.products);
+        } else {
+          throw new Error(data.message || 'Failed to fetch products');
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchProducts();
+  }, []);
+  
+  // Filter products based on search, category, and price
   const filteredProducts = products.filter(product => {
-    // 1. Search Query Filter (Name, Description, Category)
+    // Search filter
     if (searchQuery) {
-      const lowerSearch = searchQuery.toLowerCase();
-      const nameMatch = product.name.toLowerCase().includes(lowerSearch);
-      const descMatch = product.description?.toLowerCase().includes(lowerSearch); // Optional chaining for description
-      const categoryMatch = product.category?.toLowerCase().includes(lowerSearch);
-      if (!(nameMatch || descMatch || categoryMatch)) {
+      const query = searchQuery.toLowerCase();
+      if (!product.name.toLowerCase().includes(query) && 
+          !product.description.toLowerCase().includes(query) &&
+          !product.category.toLowerCase().includes(query)) {
         return false;
       }
     }
-
-    // 2. Category Filter
+    
+    // Category filter
     if (categoryFilter !== 'All' && product.category !== categoryFilter) {
       return false;
     }
-
-    // 3. Price Range Filter
-    const price = product.price; // Assuming price is a number
-    const minPrice = parseFloat(priceRange.min);
-    const maxPrice = parseFloat(priceRange.max);
-    if (!isNaN(minPrice) && price < minPrice) {
-      return false;
-    }
-    if (!isNaN(maxPrice) && price > maxPrice) {
-      return false;
-    }
-
-    // 4. Rating Filter (Assuming product has a 'rating' property) - REMOVED
-    // if (minRating > 0 && (!product.rating || product.rating < minRating)) {
-    //   return false;
-    // }
-
-    // 5. Availability Filter (Assuming product has an 'inStock' boolean property) - REMOVED
-    // if (availability === 'in-stock' && !product.inStock) {
-    //   return false;
-    // }
-
-    return true; // Product passes all filters
+    
+    // Price range filter
+    if (priceRange.min && product.price < parseFloat(priceRange.min)) return false;
+    if (priceRange.max && product.price > parseFloat(priceRange.max)) return false;
+    
+    return true;
   });
-
-  // --- Sorting Logic ---
+  
+  // Sort products
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
-      case 'price-asc':
-        return a.price - b.price;
-      case 'price-desc':
-        return b.price - a.price;
-      case 'newest':
-        // Assuming product has a 'dateAdded' property (e.g., timestamp or ISO string)
-        return new Date(b.dateAdded || 0) - new Date(a.dateAdded || 0);
-      case 'rating':
-        // Assuming product has a 'rating' property
-        return (b.rating || 0) - (a.rating || 0);
-      // Add 'best-sellers' logic if you have sales data
-      // case 'best-sellers':
-      //   return (b.sales || 0) - (a.sales || 0);
-      default:
-        return 0; // No sorting or default order
+      case 'price-asc': return a.price - b.price;
+      case 'price-desc': return b.price - a.price;
+      case 'name-asc': return a.name.localeCompare(b.name);
+      case 'name-desc': return b.name.localeCompare(a.name);
+      default: return 0;
     }
   });
-
-
-  // --- Cart Functions (Keep existing addToCart, decreaseQuantity, getItemQuantity) ---
+  
+  // Handle product click to navigate to details
+  const handleProductClick = (productId) => {
+    navigate(`/products/${productId}`);
+  };
+  
+  // Add to cart functionality
   const addToCart = (product) => {
     if (!isLoggedIn) {
       navigate('/login');
       return;
     }
-
+    
     setCartItems(prevItems => {
-      // Ensure prevItems is always an array
-      const currentCartItems = Array.isArray(prevItems) ? prevItems : [];
-      const existingItem = currentCartItems.find(item => item.id === product.id);
-
-      let updatedItems;
+      const existingItem = prevItems.find(item => item.id === product.id);
+      
       if (existingItem) {
-        // Only increase quantity, don't change selectedWeight from here
-        updatedItems = currentCartItems.map(item =>
-          item.id === product.id
-            ? {...item, quantity: item.quantity + 1}
-            : item
+        // Increase quantity if item exists
+        const updatedItems = prevItems.map(item => 
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
-      } else {
-        // Add new item
-        // Determine default weight if options exist
-        const defaultWeight = (product.weightOptions && product.weightOptions.length > 0)
-          ? product.weightOptions[0]
-          : undefined; // Or set to null or a standard default like '1 kg'
-
-        updatedItems = [...currentCartItems, {
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            quantity: 1,
-            // Add selectedWeight if determined
-            ...(defaultWeight !== undefined && { selectedWeight: defaultWeight })
-            // Add other relevant fields if needed
-        }];
-      }
-
-      localStorage.setItem('cartItems', JSON.stringify(updatedItems));
-      return updatedItems;
-    });
-  }
-
-  const decreaseQuantity = (product) => {
-    if (!setCartItems) return; // Guard clause
-
-    setCartItems(prevItems => {
-      // Ensure prevItems is always an array
-      const currentCartItems = Array.isArray(prevItems) ? prevItems : [];
-      const existingItem = currentCartItems.find(item => item.id === product.id);
-
-      let updatedItems;
-      if (existingItem && existingItem.quantity === 1) {
-        // Remove item
-        updatedItems = currentCartItems.filter(item => item.id !== product.id);
-      } else if (existingItem) {
-        // Decrease quantity, don't change selectedWeight from here
-        updatedItems = currentCartItems.map(item =>
-          item.id === product.id
-            ? {...item, quantity: item.quantity - 1}
-            : item
-        );
-      } else {
-        // Item not found
-        return currentCartItems;
-      }
-
-      // Update local storage
-      if (updatedItems.length === 0) {
-        localStorage.removeItem('cartItems');
-      } else {
         localStorage.setItem('cartItems', JSON.stringify(updatedItems));
+        return updatedItems;
+      } else {
+        // Add new item with quantity 1
+        const newItems = [...prevItems, { ...product, quantity: 1 }];
+        localStorage.setItem('cartItems', JSON.stringify(newItems));
+        return newItems;
       }
-      return updatedItems;
     });
-  }
-
-  const getItemQuantity = (productId) => {
-    // Ensure cartItems is treated as an array
-    const currentCartItems = Array.isArray(cartItems) ? cartItems : [];
-    const item = currentCartItems.find(item => item.id === productId);
-    return item ? item.quantity : 0;
-  }
-
-  // Navigate to product detail page
-  const handleProductClick = (productId) => {
-    navigate(`/products/${productId}`);
   };
-
-  // --- Handlers for Filter Changes ---
-  const handlePriceChange = (e) => {
-    const { name, value } = e.target;
-    setPriceRange(prev => ({ ...prev, [name]: value }));
-  };
-
-  // Handler for search input change
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-    // Optional: Update URL as user types (can be noisy)
-    // navigate(`${location.pathname}?search=${e.target.value}`, { replace: true });
-  };
-
+  
+  if (loading) return <div className="loading-container">Loading products...</div>;
+  if (error) return <div className="error-container">{error}</div>;
+  
   return (
     <div className="products-page">
-      <h1>{searchQuery ? `Results for "${searchQuery}"` : 'Fresh From Our Farms'}</h1>
-
-      <div className="products-layout">
-        {/* --- Filters Sidebar --- */}
+      <div className="products-header">
+        <h1>Our Products</h1>
+        <p>Fresh from farms to your doorstep</p>
+      </div>
+      
+      <div className="products-container">
         <aside className="filters-sidebar">
-          <h3>Filters</h3>
-
-          {/* Search Filter */}
           <div className="filter-group">
-            <h4>Search Products</h4>
+            <h3>Search</h3>
             <input
               type="text"
-              placeholder="Search by name, category..."
+              placeholder="Search products..."
               value={searchQuery}
-              onChange={handleSearchChange}
-              style={{ width: '100%', padding: '8px 12px', border: '1px solid var(--border-color)', borderRadius: '6px', fontSize: '0.9rem' }} // Inline styles for simplicity, move to CSS if preferred
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input"
             />
           </div>
-
-          {/* Category Filter */}
+          
           <div className="filter-group">
-            <h4>Category</h4>
-            <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+            <h3>Categories</h3>
+            <div className="category-options">
               {categories.map(category => (
-                <option key={category} value={category}>{category}</option>
+                <label key={category} className="category-option">
+                  <input
+                    type="radio"
+                    name="category"
+                    checked={categoryFilter === category}
+                    onChange={() => setCategoryFilter(category)}
+                  />
+                  <span>{category}</span>
+                </label>
               ))}
-            </select>
+            </div>
           </div>
-
-          {/* Price Range Filter */}
+          
           <div className="filter-group">
-            <h4>Price Range (₹)</h4>
+            <h3>Price Range</h3>
             <div className="price-inputs">
               <input
                 type="number"
-                name="min"
                 placeholder="Min"
                 value={priceRange.min}
-                onChange={handlePriceChange}
-                min="0"
+                onChange={(e) => setPriceRange(prev => ({ ...prev, min: e.target.value }))}
+                className="price-input"
               />
-              <span>-</span>
+              <span>to</span>
               <input
                 type="number"
-                name="max"
                 placeholder="Max"
                 value={priceRange.max}
-                onChange={handlePriceChange}
-                min="0"
+                onChange={(e) => setPriceRange(prev => ({ ...prev, max: e.target.value }))}
+                className="price-input"
               />
             </div>
-            {/* --- Main Content Area (Sorting + Grid) --- */}
-        <main className="products-main-content">
-          {/* Sorting Dropdown */}
-          <div className="sorting-section">
-            <label htmlFor="sort-by">Sort by: </label>
-            <select id="sort-by" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          </div>
+          
+          <div className="filter-group">
+            <h3>Sort By</h3>
+            <select 
+              value={sortBy} 
+              onChange={(e) => setSortBy(e.target.value)}
+              className="sort-select"
+            >
               <option value="default">Default</option>
               <option value="price-asc">Price: Low to High</option>
               <option value="price-desc">Price: High to Low</option>
-              <option value="newest">Newest First</option>
-              <option value="rating">Most Rated</option>
-              {/* <option value="best-sellers">Best Sellers</option> */}
+              <option value="name-asc">Name: A to Z</option>
+              <option value="name-desc">Name: Z to A</option>
             </select>
           </div>
-          </main>
-            {/* Placeholder for Slider */}
-            {/* <p>(Price Slider Here)</p> */}
-          </div>
-
-          {/* Rating Filter - REMOVED */}
-          {/* <div className="filter-group">
-            <h4>Minimum Rating</h4>
-            <StarRating rating={minRating} setRating={setMinRating} />
-          </div> */}
-
-          {/* Availability Filter - REMOVED */}
-          {/* <div className="filter-group">
-            <h4>Availability</h4>
-            <label>...</label>
-            <label>...</label>
-          </div> */}
-
         </aside>
-
         
-
-          {/* Product Grid */}
+        <div className="products-grid">
           {sortedProducts.length > 0 ? (
-            <div className="product-grid">
-              {sortedProducts.map(product => {
-                const quantity = getItemQuantity(product.id);
-                return (
-                  // --- Product Card JSX (Keep existing structure) ---
-                  <div className="product-card" key={product.id}>
-                    <div
-                      className="product-link"
-                      onClick={() => handleProductClick(product.id)}
-                    >
-                      <img src={product.image} alt={product.name} loading="lazy" />
-                      <div className="product-content">
-                        <h3>{product.name}</h3>
-                        <p className="category">{product.category}</p>
-                        {/* Display rating if available */}
-                        {product.rating && (
-                          <div className="card-rating">
-                             <FaStar color="#ffc107" /> {product.rating.toFixed(1)}
-                          </div>
-                        )}
-                        <p className="price">₹{product.price.toFixed(2)}/kg</p>
-                        <p className="description">{product.description}</p>
-                      </div>
-                    </div>
-                    <div className="product-actions">
-                      {!isLoggedIn ? (
-                         <button className="add-to-cart-btn" onClick={() => navigate('/login')}>
-                           Login to Add
-                         </button>
-                      ) : quantity === 0 ? (
-                        <button className="add-to-cart-btn" onClick={() => addToCart(product)}>
-                          Add to Cart
-                        </button>
-                      ) : (
-                        <div className="quantity-control">
-                          <button className="quantity-btn" onClick={() => decreaseQuantity(product)}>-</button>
-                          <span className="quantity">{quantity}</span>
-                          <button className="quantity-btn" onClick={() => addToCart(product)}>+</button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  // --- End Product Card JSX ---
-                );
-              })}
-            </div>
+            sortedProducts.map(product => (
+              <div className="product-card" key={product.id}>
+                <div className="product-image" onClick={() => handleProductClick(product.id)}>
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      // Using a more reliable placeholder service
+                      e.target.src = 'https://placehold.co/300x300/png?text=No+Image';
+                    }}
+                  />
+                </div>
+                <div className="product-info" onClick={() => handleProductClick(product.id)}>
+                  <h3 className="product-name">{product.name}</h3>
+                  <p className="product-category">{product.category}</p>
+                  <p className="product-price">₹{product.price.toFixed(2)}/kg</p>
+                  <p className="product-description">{product.description.substring(0, 60)}...</p>
+                </div>
+                <button 
+                  className="add-to-cart-btn"
+                  onClick={() => addToCart(product)}
+                  disabled={!isLoggedIn}
+                >
+                  {isLoggedIn ? 'Add to Cart' : 'Login to Add'}
+                </button>
+              </div>
+            ))
           ) : (
-             <p className="no-products-message">No products found matching your criteria.</p>
+            <div className="no-products">
+              <p>No products found matching your criteria.</p>
+            </div>
           )}
-        
+        </div>
       </div>
     </div>
   );

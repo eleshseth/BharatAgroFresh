@@ -134,3 +134,55 @@ export const updateProduct = async (req, res) => {
     });
   }
 };
+
+export const getSellerProducts = async (req, res) => {
+  try {
+    // Add logging to debug
+    console.log('Seller ID:', req.seller._id);
+    
+    const products = await Product.find({ seller: req.seller._id })
+      .sort({ createdAt: -1 }); // Sort by newest first
+    
+    console.log('Found products:', products);
+
+    res.status(200).json({
+      status: 'success',
+      results: products.length,
+      data: {
+        products
+      }
+    });
+  } catch (error) {
+    console.error('Error in getSellerProducts:', error);
+    res.status(500).json({
+      status: 'error',
+      message: error.message
+    });
+  }
+};
+
+// Add this controller function
+export const getProduct = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    
+    if (!product) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Product not found'
+      });
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        product
+      }
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'error',
+      message: error.message
+    });
+  }
+};
