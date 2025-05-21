@@ -89,129 +89,6 @@ img {
   display: block;
 }
 
-button,
-.button-style {
-  /* Using styles from index.css */
-  cursor: pointer;
-  background-color: var(--primary-color);
-  color: var(--white-color);
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--border-radius-md);
-  font-family: var(--body-font);
-  font-weight: 600;
-  font-size: 1rem;
-  text-align: center;
-  transition: var(--transition);
-  display: inline-block;
-  text-decoration: none;
-  box-shadow: var(--shadow); /* Add base shadow */
-}
-
-button:hover,
-.button-style:hover {
-  /* Using styles from index.css */
-  background-color: var(--secondary-color);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md); /* Enhance shadow on hover */
-}
-
-button:active,
-.button-style:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow);
-}
-
-/* General container for consistent padding */
-.container {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  width: 100%;
-}
-
-/* Input field base styles */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-textarea,
-select {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-md);
-  font-size: 1rem;
-  font-family: var(--body-font);
-  color: var(--text-color);
-  background-color: var(--white-color);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-input[type="number"]:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(69, 160, 73, 0.2); /* Focus ring */
-}
-
-/* Layout Styles from base.css */
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: var(--light-color); /* Use a light background for the app */
-}
-
-/* --- Header & Navigation --- */
-/* Removed header, nav, .logo-link, .logo-img, .nav-links, */
-/* .user-menu, .user-menu-container, .auth-buttons, */
-/* .login-btn, .signup-btn, .cart-icon, .cart-count styles */
-/* Also removed associated responsive styles for header elements */
-
-/* --- Main Content Area --- */
-
-
-/* Loading and Error States */
-.loading-container, .error-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 50vh; /* Take up significant space */
-  text-align: center;
-  padding: 2rem;
-}
-
-.loading-container p, .error-container p {
-  font-size: 1.2rem;
-  color: var(--text-color-light);
-  margin-bottom: 1rem;
-}
-
-.error-container button {
-  /* Use existing button styles or define specific ones */
-  padding: 0.8rem 1.5rem;
-  background-color: var(--primary-color);
-  color: var(--white-color);
-  border: none;
-  border-radius: var(--border-radius-md);
-  cursor: pointer;
-  transition: var(--transition);
-  font-weight: 500;
-}
-
-.error-container button:hover {
-  background-color: var(--secondary-color);
-  box-shadow: var(--shadow);
-}
-
 
 /* --- Footer --- */
 footer {
@@ -240,19 +117,9 @@ footer p {
 /* Small screens (Mobile) */
 @media (max-width: 768px) {
   /* Keep non-header related rules */
-  main {
-    padding: 1.5rem 0; /* Adjust main padding */
-  }
 
   footer {
     padding: 1.2rem 1rem;
   }
 }
 
-/* Add media query to adjust padding for mobile */
-@media (max-width: 768px) {
-  main {
-    padding-top: 4rem; /* Adjust padding-top for smaller header (approx 60px) */
-  }
-  /* Add other mobile adjustments for base.css if needed */
-}

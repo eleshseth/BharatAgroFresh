@@ -65,14 +65,15 @@ function Login({ setIsLoggedIn }) {
   };
 
   return (
-    <div className="login-page" >
+    <div className="login-page">
       <div className="login-content">
         <div className="login-form-container">
           <div className="login-form">
-            <h2>Email</h2>
-            {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleSubmit}>
+              {error && <div className="error-message">{error}</div>}
+              <h1>Welcome Back!</h1>
               <div className="form-group">
+                <h2>Email</h2>
                 <input
                   type="email"
                   id="email"
@@ -87,13 +88,21 @@ function Login({ setIsLoggedIn }) {
                 <h2>Password</h2>
                 <div className="password-input-container">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
                     required
                   />
+                  <button
+                    type="button"
+                    className="password-toggle"
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    {showPassword ? 'Hide' : 'Show'}
+                  </button>
                 </div>
                 <div className="forgot-password-link">
                   <Link to="/forgot-password">Forgot Password?</Link>
@@ -107,12 +116,13 @@ function Login({ setIsLoggedIn }) {
               >
                 {isLoading ? 'Signing In...' : 'SIGN IN'}
               </button>
+
+              <div className="auth-links">
+                <p>
+                  New here? <Link to="/signup">Make a New Account</Link>
+                </p>
+              </div>
             </form>
-            <br></br>
-              <hr></hr>
-            <div className="auth-links">
-              <p>New here? <Link to="/signup">Make a New Account &gt;</Link></p>
-            </div>
           </div>
         </div>
       </div>

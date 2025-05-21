@@ -92,33 +92,30 @@ function Signup({ setIsLoggedIn }) {
 
   return (
     <div className='main-container'>
-      <div className='signup-page-vsharma signup-page'>
-        <div className='signup-page-vsharma auth-container'>
+      <div className='signup-page'>
+        <div className='signup-content'>
           {signupSuccess ? (
-            // --- Success Message View ---
-            <div className='signup-page-vsharma signup-success'>
+            <div className='signup-success'>
               <h2>Registration Successful!</h2>
               <p>
-                Thank you for registering! We’ll verify your account and notify
+                Thank you for registering! We'll verify your account and notify
                 you shortly.
               </p>
               <p>
                 You can now <Link to='/login'>log in</Link> or continue
                 browsing.
               </p>
-              {/* Optionally add a button to browse */}
-              {/* <button onClick={() => navigate('/')} className="auth-button browse-btn">Start Browsing</button> */}
             </div>
           ) : (
-            // --- Signup Form View ---
-            <>
-              <h1>Create Your Account</h1>
-              {error && (
-                <div className='signup-page-vsharma error-message'>{error}</div>
-              )}
-              <form onSubmit={handleSubmit}>
+            <div className='signup-form-container'>
+              <form className='signup-form' onSubmit={handleSubmit}>
+                <h1>Create Your Account</h1>
+                {error && (
+                  <div className='error-message'>{error}</div>
+                )}
+
                 {/* Name */}
-                <div className='signup-page-vsharma form-group'>
+                <div className='form-group'>
                   <label htmlFor='name'>Full Name</label>
                   <input
                     type='text'
@@ -131,7 +128,7 @@ function Signup({ setIsLoggedIn }) {
                 </div>
 
                 {/* Email */}
-                <div className='signup-page-vsharma form-group'>
+                <div className='form-group'>
                   <label htmlFor='email'>Email Address</label>
                   <input
                     type='email'
@@ -144,49 +141,45 @@ function Signup({ setIsLoggedIn }) {
                 </div>
 
                 {/* Mobile Number */}
-                <div className='signup-page-vsharma form-group'>
+                <div className='form-group'>
                   <label htmlFor='phoneNumber'>Mobile Number</label>
                   <input
-                    type='tel' // Use tel type for mobile numbers
+                    type='tel'
                     id='phoneNumber'
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     placeholder='Enter your 10-digit mobile number'
-                    maxLength='10' // Enforce 10 digits
+                    maxLength='10'
                     required
                   />
                 </div>
 
                 {/* Password */}
-                <div className='signup-page-vsharma form-group'>
+                <div className='form-group'>
                   <label htmlFor='password'>Password</label>
-                  <div className='signup-page-vsharma password-input-container'>
+                  <div className='password-input-container'>
                     <input
                       type={showPassword ? 'text' : 'password'}
                       id='password'
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder='Create a password (min. 6 characters)'
+                      placeholder='Create a password '
                       required
                     />
                     <button
                       type='button'
                       className='password-toggle'
                       onClick={() => setShowPassword(!showPassword)}
-                      aria-label={
-                        showPassword ? 'Hide password' : 'Show password'
-                      }>
-                      {/* Replace with icons if available */}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}>
                       {showPassword ? 'Hide' : 'Show'}
-                      {/* {showPassword ? <FaEyeSlash /> : <FaEye />} */}
                     </button>
                   </div>
                 </div>
 
                 {/* Confirm Password */}
-                <div className='signup-page-vsharma form-group'>
+                <div className='form-group'>
                   <label htmlFor='confirmPassword'>Confirm Password</label>
-                  <div className='signup-page-vsharma password-input-container'>
+                  <div className='password-input-container'>
                     <input
                       type={showConfirmPassword ? 'text' : 'password'}
                       id='confirmPassword'
@@ -198,42 +191,12 @@ function Signup({ setIsLoggedIn }) {
                     <button
                       type='button'
                       className='password-toggle'
-                      onClick={() =>
-                        setShowConfirmPassword(!showConfirmPassword)
-                      }
-                      aria-label={
-                        showConfirmPassword
-                          ? 'Hide confirm password'
-                          : 'Show confirm password'
-                      }>
-                      {/* Replace with icons if available */}
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}>
                       {showConfirmPassword ? 'Hide' : 'Show'}
-                      {/* {showConfirmPassword ? <FaEyeSlash /> : <FaEye />} */}
                     </button>
                   </div>
                 </div>
-
-                {/* Account Type Selection */}
-                {/* <div className='signup-page-vsharma account-type'>
-                  <label htmlFor='accountType'>I am a:</label>
-                  <select
-                    id='accountType'
-                    value={accountType}
-                    onChange={(e) => setAccountType(e.target.value)}>
-                    <option value='buyer'>
-                      Buyer (Hotel, Caterer, Distributor, etc.)
-                    </option>
-                    <option value='vendor'>Vendor (Farmer, Trader)</option>
-                  </select>
-                </div> */}
-
-                {/* Optional Vendor Fields (Can be moved to profile) */}
-                {/* {accountType === 'vendor' && (
-                <div className="vendor-fields">
-                   <div className="form-group"> ... Business Name ... </div>
-                   <div className="form-group"> ... GST Number ... </div>
-                </div>
-              )} */}
 
                 {/* Submit Button */}
                 <button
@@ -245,12 +208,12 @@ function Signup({ setIsLoggedIn }) {
               </form>
 
               {/* Link to Login */}
-              <div className='signup-page-vsharma auth-links'>
+              <div className='auth-links'>
                 <p>
                   Already have an account? <Link to='/login'>Sign In</Link>
                 </p>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>
