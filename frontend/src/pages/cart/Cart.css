@@ -249,3 +249,128 @@
     font-size: 1rem;
   }
 }
+
+.cart-summary {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 2rem;
+}
+
+.cart-summary h3 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid #eef2f7;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.summary-details {
+  margin-bottom: 1.5rem;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: #4a5568;
+  font-size: 1rem;
+}
+
+.summary-item.total {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #eef2f7;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #2d3748;
+}
+
+.delivery-info {
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.delivery-icon {
+  font-size: 1.5rem;
+}
+
+.delivery-details {
+  flex: 1;
+}
+
+.delivery-title {
+  color: #4a5568;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+.delivery-time {
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.checkout-button {
+  width: 100%;
+  padding: 1rem;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(76, 175, 80, 0.2);
+}
+
+.checkout-button:hover {
+  background: #43A047;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.checkout-button:disabled {
+  background: #a0a0a0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.error-message {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background: #fee2e2;
+  color: #dc2626;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .cart-summary {
+    position: static;
+    margin-top: 2rem;
+    padding: 1.5rem;
+  }
+
+  .delivery-info {
+    padding: 0.8rem;
+  }
+
+  .checkout-button {
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+}

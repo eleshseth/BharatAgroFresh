@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Add useNavigate import
 import './Cart.css'; // Ensure CSS is imported
 
 // Assuming Material Icons are linked in your public/index.html or imported
 // Example: <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 function Cart({ cartItems, setCartItems }) {
+  const navigate = useNavigate();
   const [deliveryOption, setDeliveryOption] = useState('standard');
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState(null);
 
   // Load cart items from localStorage only if the initial prop is empty/null
   useEffect(() => {
@@ -111,6 +114,64 @@ function Cart({ cartItems, setCartItems }) {
   const shippingCost = calculateShipping();
   const totalCost = calculateTotal();
 
+  const handleCheckout = async () => {
+    if (!cartItems.length) {
+      setError('Your cart is empty');
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setError('Please login to proceed with checkout');
+      navigate('/login');
+      return;
+    }
+
+    setIsProcessing(true);
+    setError(null);
+
+    try {
+      const orderItems = cartItems.map(item => ({
+        product: item.id,
+        quantity: item.quantity || 1,
+        price: item.price
+      }));
+
+      const response = await fetch('http://localhost:6005/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          items: orderItems,
+          totalAmount: calculateTotal(),
+          shippingAddress: {
+            street: '',
+            city: '',
+            state: '',
+            pincode: ''
+          }
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.status === 'success') {
+        setCartItems([]);
+        localStorage.removeItem('cartItems');
+        alert('Order placed successfully!');
+        navigate('/orders');
+      } else {
+        throw new Error(data.message || 'Failed to place order');
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   return (
     <div className="cart-page">
       <h1>Your Cart</h1>
@@ -182,90 +243,51 @@ function Cart({ cartItems, setCartItems }) {
         </div>
 
         <div className="cart-summary">
-          <h2>Order Summary</h2>
-          <div className="summary-row">
-            <span>Subtotal</span>
-            <span>₹{subtotal.toFixed(2)}</span>
-          </div>
-          <div className="summary-row">
-            <span>Tax (18% GST)</span>
-            <span>₹{calculateTax().toFixed(2)}</span>
-          </div>
-
-          {/* Delivery Options */}
-          <div className="delivery-options">
-            <h3>Delivery Options</h3>
-            <div className="delivery-option">
-              <input
-                type="radio"
-                id="standard"
-                name="delivery"
-                value="standard"
-                checked={deliveryOption === 'standard'}
-                onChange={() => setDeliveryOption('standard')}
-              />
-              <label htmlFor="standard">
-                <span className="delivery-name">Standard Delivery</span>
-                <span className="delivery-info">3-5 business days</span>
-                <span className="delivery-price">{subtotal >= 5000 ? 'Free' : '₹80.00'}</span>
-              </label>
+          <h3>Order Summary</h3>
+          <div className="summary-details">
+            <div className="summary-item">
+              <span>Subtotal:</span>
+              <span>₹{calculateSubtotal().toFixed(2)}</span>
             </div>
-            <div className="delivery-option">
-              <input
-                type="radio"
-                id="express"
-                name="delivery"
-                value="express"
-                checked={deliveryOption === 'express'}
-                onChange={() => setDeliveryOption('express')}
-              />
-              <label htmlFor="express">
-                <span className="delivery-name">Express Delivery</span>
-                <span className="delivery-info">1-2 business days</span>
-                <span className="delivery-price">{subtotal >= 5000 ? 'Free' : '₹150.00'}</span>
-              </label>
+            <div className="summary-item">
+              <span>Tax (18%):</span>
+              <span>₹{calculateTax().toFixed(2)}</span>
+            </div>
+            <div className="summary-item">
+              <span>Shipping:</span>
+              <span>₹{calculateShipping().toFixed(2)}</span>
+            </div>
+            
+            {/* Add delivery time estimate */}
+            <div className="delivery-info">
+              <div className="delivery-icon">🚚</div>
+              <div className="delivery-details">
+                <p className="delivery-title">Estimated Delivery Time</p>
+                <p className="delivery-time">
+                  {deliveryOption === 'express' ? '1-2 Business Days' : '3-5 Business Days'}
+                </p>
+              </div>
+            </div>
+
+            <div className="summary-item total">
+              <span>Total:</span>
+              <span>₹{calculateTotal().toFixed(2)}</span>
             </div>
           </div>
-
-          {/* Shipping Row */}
-          <div className="summary-row">
-            <span>Shipping</span>
-            <span>{shippingCost === 0 ? 'Free' : `₹${shippingCost.toFixed(2)}`}</span>
-          </div>
-
-          {/* Total Row */}
-          <div className="summary-row total">
-            <span>Total</span>
-            <span>₹{totalCost.toFixed(2)}</span>
-          </div>
-
-          {/* Free Shipping Message */}
-          {subtotal > 0 && subtotal < 5000 && (
-            <div className="free-shipping-message">
-              <span className="material-icons" aria-hidden="true">local_shipping</span>
-              <span>Add ₹{(5000 - subtotal).toFixed(2)} more for FREE standard shipping!</span>
-            </div>
-          )}
-
-          {/* Checkout Button */}
-          <button className="checkout-btn">
-            Proceed to Checkout
+          
+          <button 
+            className="checkout-button"
+            onClick={handleCheckout}
+            disabled={isProcessing || !cartItems.length}
+          >
+            {isProcessing ? 'Processing...' : 'Proceed to Checkout'}
           </button>
-
-          {/* Continue Shopping Link */}
-          <Link to="/products" className="continue-shopping">
-            Continue Shopping
-          </Link>
-
-          {/* Optional: Shipping Info */}
-          <div className="shipping-info">
-             <p>Shipping & taxes calculated at checkout.</p>
-          </div>
-
+          
+          {error && <div className="error-message">{error}</div>}
         </div>
       </div>
     </div>
   );
 }
 
-export default Cart
+export default Cart;
